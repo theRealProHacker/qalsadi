@@ -1,99 +1,99 @@
 #!/usr/bin/python
 # -*- coding=utf-8 -*-
 """
-Constants for pounctuation stemming
+Constants for punctuation stemming
 """
-POUNCTUATION = {}
+PUNCTUATION = {}
 
-POUNCTUATION["."] = {
+PUNCTUATION["."] = {
     "word": ".",
     "tags": "نقطة:break",
 }
-POUNCTUATION["~"] = {
+PUNCTUATION["~"] = {
     "word": "~",
     "tags": "شفاف",
 }
 
-POUNCTUATION[","] = {
+PUNCTUATION[","] = {
     "word": ",",
     "tags": "فاصلة:break",
 }
-POUNCTUATION["،"] = {
+PUNCTUATION["،"] = {
     "word": "،",
     "tags": "فاصلة:break",
 }
-# POUNCTUATION[u',']={'word':u',', 'tags':u'فاصلة:شفاف',}
-# POUNCTUATION[u'،']={'word':u'،', 'tags':u'فاصلة:شفاف',}
+# PUNCTUATION[u',']={'word':u',', 'tags':u'فاصلة:شفاف',}
+# PUNCTUATION[u'،']={'word':u'،', 'tags':u'فاصلة:شفاف',}
 
-POUNCTUATION["?"] = {
+PUNCTUATION["?"] = {
     "word": "?",
     "tags": "استفهام:break",
 }
-POUNCTUATION["؟"] = {
+PUNCTUATION["؟"] = {
     "word": "؟",
     "tags": "استفهام:break",
 }
-POUNCTUATION["!"] = {
+PUNCTUATION["!"] = {
     "word": "!",
     "tags": "تعجب:break",
 }
 
-POUNCTUATION[";"] = {
+PUNCTUATION[";"] = {
     "word": ";",
     "tags": "نقطة فاصلة:break",
 }
-POUNCTUATION["-"] = {
+PUNCTUATION["-"] = {
     "word": "-",
     "tags": "مطة:break",
 }
 
-POUNCTUATION[":"] = {
+PUNCTUATION[":"] = {
     "word": ":",
     "tags": "نقطتان:break",
 }
 
-POUNCTUATION["'"] = {
+PUNCTUATION["'"] = {
     "word": "'",
     "tags": "تنصيص مفرد:شفاف",
 }
-POUNCTUATION[" "] = {
+PUNCTUATION[" "] = {
     "word": " ",
     "tags": "فراغ:شفاف",
 }
 
-POUNCTUATION['"'] = {
+PUNCTUATION['"'] = {
     "word": '"',
     "tags": "تنصيص مزدوج:شفاف",
 }
 
-POUNCTUATION[")"] = {
+PUNCTUATION[")"] = {
     "word": ")",
     "tags": "قوس",
 }
-POUNCTUATION["("] = {
+PUNCTUATION["("] = {
     "word": "(",
     "tags": "قوس",
 }
 
-POUNCTUATION["["] = {
+PUNCTUATION["["] = {
     "word": "[",
     "tags": "عارضة",
 }
-POUNCTUATION["]"] = {
+PUNCTUATION["]"] = {
     "word": "]",
     "tags": "عارضة",
 }
 
-POUNCTUATION["{"] = {
+PUNCTUATION["{"] = {
     "word": "{",
     "tags": "حاضنة",
 }
-POUNCTUATION["}"] = {
+PUNCTUATION["}"] = {
     "word": "}",
     "tags": "حاضنة:break",
 }
-# treat newline as pounct for now
-POUNCTUATION["\n"] = {
+# treat newline as punct for now
+PUNCTUATION["\n"] = {
     "word": "\n",
     "tags": "سطر جديد:newline:break",
 }

@@ -43,7 +43,7 @@ from fixtures import verb_dataset
 from fixtures import noun_dataset
 from fixtures import stopword_dataset
 from fixtures import unknown_dataset
-from fixtures import pounct_dataset
+from fixtures import punct_dataset
 
 
 class qalsadiAnalyzerTestCase(unittest.TestCase):
@@ -59,7 +59,7 @@ class qalsadiAnalyzerTestCase(unittest.TestCase):
         self.noun_lemma_list = noun_dataset.Lemmas_DataSet
         self.stopword_lemma_list = stopword_dataset.Lemmas_DataSet
         self.unknown_lemma_list = unknown_dataset.Lemmas_DataSet
-        self.pounct_lemma_list = pounct_dataset.Lemmas_DataSet
+        self.punct_lemma_list = punct_dataset.Lemmas_DataSet
         self.limit = 1000
 
     def _check_word(self, word, vocalized_lemma=False, check_as=""):
@@ -72,8 +72,8 @@ class qalsadiAnalyzerTestCase(unittest.TestCase):
             wordcases = self.analyzer.check_word_as_noun(word)
         elif check_as == "verb":
             wordcases = self.analyzer.check_word_as_verb(word)
-        elif check_as == "pounct":
-            wordcases = self.analyzer.check_word_as_pounct(word)
+        elif check_as == "punct":
+            wordcases = self.analyzer.check_word_as_punct(word)
         elif check_as == "unknown":
             wordcases = self.analyzer.check_word_as_unknown(word)
         elif check_as == "stopword":
@@ -168,12 +168,12 @@ class qalsadiAnalyzerTestCase(unittest.TestCase):
         )
 
     @unittest.skip("used to generate Data Set")
-    def test_generate_pounct_data_set(
+    def test_generate_punct_data_set(
         self,
     ):
         """test text case"""
         text = """هل تحتاج إلى ترجمة كي تفهم خطاب الملك؟ اللغة "الكلاسيكية" (الفصحى) موجودة في كل اللغات وكذلك اللغة "الدارجة" .. الفرنسية التي ندرس في المدرسة ليست الفرنسية التي يستخدمها الناس في شوارع باريس .. وملكة بريطانيا لا تخطب بلغة شوارع لندن .. لكل مقام مقال"""
-        self._test_generate_data_set(text, check_as="pounct")
+        self._test_generate_data_set(text, check_as="punct")
         self.assertCountEqual(
             [
                 1,
@@ -239,7 +239,6 @@ class qalsadiAnalyzerTestCase(unittest.TestCase):
                             "output": vocalizeds,
                             "expected": expected_vocalizeds,
                             "wordtype": stmnode_result.get_word_type(),
-                            "expected_wordtype": expected_wordtype,
                             "flag": result_flag,
                         }
                     )
@@ -668,16 +667,16 @@ class qalsadiAnalyzerTestCase(unittest.TestCase):
             len_wrong_cases, 0, "There are %d wrong cases " % len_wrong_cases
         )
 
-    # pouncts
+    # puncts
 
-    def test_analysis_case1_pounct(
+    def test_analysis_case1_punct(
         self,
     ):
         """test case
         based on dataset"""
 
         result = self._test_many_analysis(
-            self.pounct_lemma_list, limit=self.limit, check_as="pounct"
+            self.punct_lemma_list, limit=self.limit, check_as="punct"
         )
         len_wrong_cases = len(result)
         if len_wrong_cases:
@@ -688,14 +687,14 @@ class qalsadiAnalyzerTestCase(unittest.TestCase):
         )
 
     # ~ @unittest.skip("not yet ready ")
-    def test_analysis_vocalized_case_pounct(
+    def test_analysis_vocalized_case_punct(
         self,
     ):
         """test case
         based on dataset"""
 
         result = self._test_many_analysis(
-            self.pounct_lemma_list, vocalized=True, limit=self.limit, check_as="pounct"
+            self.punct_lemma_list, vocalized=True, limit=self.limit, check_as="punct"
         )
         len_wrong_cases = len(result)
         if len_wrong_cases:
@@ -705,14 +704,14 @@ class qalsadiAnalyzerTestCase(unittest.TestCase):
             len_wrong_cases, 0, "There are %d wrong cases " % len_wrong_cases
         )
 
-    def test_analysis_vocalizations_case1_pounct(
+    def test_analysis_vocalizations_case1_punct(
         self,
     ):
         """test case according to generated vocalizations
         based on dataset"""
 
         result = self._test_many_analysis_vocalizeds(
-            self.pounct_lemma_list, limit=self.limit, check_as="pounct"
+            self.punct_lemma_list, limit=self.limit, check_as="punct"
         )
         len_wrong_cases = len(result)
         if len_wrong_cases:

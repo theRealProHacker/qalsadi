@@ -8,7 +8,7 @@ from . import stem_noun  # noun stemming
 from . import stem_verb  # verb stemming
 from . import stem_unknown  # unknown word stemming
 from . import stem_stop as stem_stopwords  # stopwords word stemming
-from . import stem_pounct_const  # pounctaution constants
+from . import stem_punct_const  # punctaution constants
 from . import disambig  # disambiguation const
 from . import wordcase
 from . import stemmedword  # the result object for stemming
@@ -142,7 +142,7 @@ class Analex:
                 newlist = []
                 for phr in list_phrase:
                     if not self.clause_pattern.match(phr):
-                        # is pounctuation or symboles
+                        # is punctuation or symboles
                         # print 'not match', ph.encode('utf8')
                         if j < 0:
                             # the symbols are in the begining
@@ -256,8 +256,8 @@ class Analex:
             result = self.cache.get_checked(word_nm)
         else:
             result = []
-            # if word is a pounctuation
-            result += self.check_word_as_pounct(word_nm)
+            # if word is a punctuation
+            result += self.check_word_as_punct(word_nm)
             # Done: if the word is a stop word we have  some problems,
             # the stop word can also be another normal word (verb or noun),
             # we must consider it in future works
@@ -387,9 +387,9 @@ class Analex:
             resulted_data[i] = item
         return resulted_data
 
-    def check_word_as_pounct(self, word):
+    def check_word_as_punct(self, word):
         """
-        Check if the word is a pounctuation,
+        Check if the word is a punctuation,
         @param word: the input word.
         @type word: unicode.
         @return: list of dictionaries of analyzed words with tags.
@@ -418,11 +418,11 @@ class Analex:
             )
         # test if all chars in word are punctuation
         for char in word:
-            # if one char is not a pounct, break
-            if char not in stem_pounct_const.POUNCTUATION:
+            # if one char is not a punct, break
+            if char not in stem_punct_const.punctuation:
                 break
         else:
-            # if all chars are pounct, the word take tags of the first char
+            # if all chars are punct, the word take tags of the first char
             detailed_result.append(
                 wordcase.WordCase(
                     {
@@ -431,8 +431,8 @@ class Analex:
                         "stem": "",
                         "original": word,
                         "vocalized": word,
-                        "tags": stem_pounct_const.POUNCTUATION[word[0]]["tags"],
-                        "type": "POUNCT",
+                        "tags": stem_punct_const.punctuation[word[0]]["tags"],
+                        "type": "punct",
                         "freq": 0,
                         "syntax": "",
                         "root": "",

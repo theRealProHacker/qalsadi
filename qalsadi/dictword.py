@@ -58,7 +58,7 @@ class dictWord:
         self.tagMasdar = False
         self.tagProperNoun = False
         self.tagAdj = False
-        self.tagPounct = False
+        self.tagPunct = False
         self.tagTransparent = False
         self.tagMasculin = False
         self.tagFeminin = False
@@ -78,7 +78,7 @@ class dictWord:
         elif self.tagStopWord:
             self.tagTransparent = self._isTransparent()
         else:
-            self.tagPounct = self._isPounct()
+            self.tagpunct = self._ispunct()
         self.tagInitial = self._isInitial()
         self.tagFeminin = self._isFeminin()
         # self.tagMasculin  = not self.tagFeminin #self._isMasculin();
@@ -161,7 +161,7 @@ class dictWord:
         # temporary,
         # the transparent word are stopwords like هذا وذلك
         # the stopword tags have اسم إشارة,
-        # a pounctuation can has the transparent tag like quotes., which havent any gramatical effect.
+        # a punctuation can has the transparent tag like quotes., which havent any gramatical effect.
         # Todo
         # حالة بذلك الرجل
         return "شفاف" in self.getTags() or "إشارة" in self.getTags()
@@ -199,13 +199,13 @@ class dictWord:
         # return not self._isPlural() and not self._isDual();
         return not self.isPlural() and not self.isDual()
 
-    def _isPounct(self):
+    def _ispunct(self):
         """
-        Return True if the word is a pounctuation.
+        Return True if the word is a punctuation.
         @return: is a verb.
         @rtype: True/False;
         """
-        return "POUNCT" in self.getType()
+        return "punct" in self.getType()
 
     def _isBreak(self):
         """
@@ -222,7 +222,7 @@ class dictWord:
         # return True;
         # el
         # if self.hasProcletic() and self.hasJar():
-        return self.isStopWord() or (self.isPounct() and "break" in self.getTags())
+        return self.isStopWord() or (self.ispunct() and "break" in self.getTags())
 
     def _isFeminin(self):
         """
@@ -458,13 +458,13 @@ class dictWord:
         """
         return self.tagProperNoun
 
-    def isPounct(self):
+    def ispunct(self):
         """
-        Return True if the word is a pounctuation.
+        Return True if the word is a punctuation.
         @return: is a verb.
         @rtype: True/False;
         """
-        return self.tagPounct
+        return self.tagpunct
 
     def isTransparent(self):
         """
@@ -475,7 +475,7 @@ class dictWord:
         # temporary,
         # the transparent word are stopwords like هذا وذلك
         # the stopword tags have اسم إشارة,
-        # a pounctuation can has the transparent tag like quotes., which havent any gramatical effect.
+        # a punctuation can has the transparent tag like quotes., which havent any gramatical effect.
         # Todo
         # حالة بذلك الرجل
         return self.tagTransparent
@@ -561,45 +561,3 @@ class dictWord:
             text += "\n\t\t'%s' = '%s'," % (key, stmword[key])
         text += "\n\t\t}"
         return text.encode("utf8")
-
-
-if __name__ == "__main__":
-    print("test")
-    rdict = {}
-    rdict = {
-        "word": "الحياة",  # input word
-        "vocalized": "الْحَيَاةُ",  # vocalized form of the input word
-        "procletic": "ال",  # the syntaxic pprefix called procletic
-        "prefix": "",  # the conjugation or inflection prefix
-        "stem": "حياة",  # the word stem
-        "suffix": "ُ",  # the conjugation suffix of the word
-        "encletic": "",  # the syntaxic suffix
-        "tags": "تعريف::مرفوع*",  # tags of affixes and tags extracted form lexical dictionary
-        "freq": 0,  # the word frequency from Word Frequency database
-        "root": "",  # the word root; not yet used
-        "template": "",  # the template وزن
-        "type": "Noun:مصدر",  # the word type
-        "original": "حَيَاةٌ",  # original word from lexical dictionary
-        "syntax": "",  # used for syntaxique analysis porpos
-        "semantic": "",
-    }
-    stmwrd = stemmedWord(rdict)
-    print(stmwrd.getDict())
-
-    stmwrd.setWord("4444")
-    stmwrd.setVocalized("4444")
-    stmwrd.setProcletic("4444")
-    stmwrd.setPrefix("4444")
-    stmwrd.setStem("4444")
-    stmwrd.setSuffix("4444")
-    stmwrd.setEncletic("4444")
-    stmwrd.setTags("4444")
-    stmwrd.setFreq("4444")
-    stmwrd.setRoot("4444")
-    stmwrd.setTemplate("4444")
-    stmwrd.setType("4444")
-    stmwrd.setOriginal("4444")
-    # stmwrd.setSyntax("4444");
-    # stmwrd.setSyntax("4444");
-
-    print(stmwrd)

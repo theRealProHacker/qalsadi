@@ -358,7 +358,7 @@ class StemmedWord:
         # temporary,
         # the transparent word are stopwords like هذا وذلك
         # the stopword tags have اسم إشارة,
-        # a pounctuation can has the transparent tag like quotes.,
+        # a punctuation can has the transparent tag like quotes.,
         # which havent any gramatical effect.
         # Todo
         # حالة بذلك الرجل
@@ -482,7 +482,7 @@ class StemmedWord:
         # - حرف جر متصل
         # فاصلة أو نقطة
         result = False
-        if self.is_pounct() and "break" in self.get_tags():
+        if self.is_punct() and "break" in self.get_tags():
             result = True
         elif self.is_stopword() and not self.is_noun() and not self.is_transparent():
             result = True
@@ -717,8 +717,8 @@ class StemmedWord:
         """Return True if the word is a proper noun."""
         return bool(self.tag_type // 32 % 2)
 
-    def is_pounct(self):
-        """Return True if the word is a pounctuation."""
+    def is_punct(self):
+        """Return True if the word is a punctuation."""
         return bool(self.tag_type // 64 % 2)
 
     def is_number(self):
@@ -732,7 +732,7 @@ class StemmedWord:
         # temporary,
         # the transparent word are stopwords like هذا وذلك
         # the stopword tags have اسم إشارة,
-        # a pounctuation can has the transparent tag like quotes.,
+        # a punctuation can has the transparent tag like quotes.,
         # which havent any gramatical effect.
         # Todo
         # حالة بذلك الرجل

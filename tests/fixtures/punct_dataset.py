@@ -63,7 +63,7 @@ Lemmas_DataSet = [
     {
         "token": "؟",
         "lemmas": ["؟"],
-        "wordtype": "pounct",
+        "wordtype": "punct",
         "vocalizeds": ["؟"],
         "equal": True,
     },
@@ -77,7 +77,7 @@ Lemmas_DataSet = [
     {
         "token": '"',
         "lemmas": ['"'],
-        "wordtype": "pounct",
+        "wordtype": "punct",
         "vocalizeds": ['"'],
         "equal": True,
     },
@@ -91,7 +91,7 @@ Lemmas_DataSet = [
     {
         "token": '"(',
         "lemmas": ['"('],
-        "wordtype": "pounct",
+        "wordtype": "punct",
         "vocalizeds": ['"('],
         "equal": True,
     },
@@ -105,7 +105,7 @@ Lemmas_DataSet = [
     {
         "token": ")",
         "lemmas": [")"],
-        "wordtype": "pounct",
+        "wordtype": "punct",
         "vocalizeds": [")"],
         "equal": True,
     },
@@ -154,7 +154,7 @@ Lemmas_DataSet = [
     {
         "token": '"',
         "lemmas": ['"'],
-        "wordtype": "pounct",
+        "wordtype": "punct",
         "vocalizeds": ['"'],
         "equal": True,
     },
@@ -168,7 +168,7 @@ Lemmas_DataSet = [
     {
         "token": '"..',
         "lemmas": ['"..'],
-        "wordtype": "pounct",
+        "wordtype": "punct",
         "vocalizeds": ['"..'],
         "equal": True,
     },
@@ -266,7 +266,7 @@ Lemmas_DataSet = [
     {
         "token": "..",
         "lemmas": [".."],
-        "wordtype": "pounct",
+        "wordtype": "punct",
         "vocalizeds": [".."],
         "equal": True,
     },
@@ -322,7 +322,7 @@ Lemmas_DataSet = [
     {
         "token": "..",
         "lemmas": [".."],
-        "wordtype": "pounct",
+        "wordtype": "punct",
         "vocalizeds": [".."],
         "equal": True,
     },
