@@ -1,30 +1,80 @@
-#!/usr/bin/python
-# -*- coding=utf-8 -*-
-
-# ------------------------------------------------------------------------
-# Name:        dconst.py
-# Purpose:     Arabic lexical analyser constants used for disambiguation
-# before analysis
-#
-# Author:      Taha Zerrouki (taha.zerrouki[at]gmail.com)
-#
-# Created:     31-10-2011
-# Copyright:   (c) Taha Zerrouki 2011
-# Licence:     GPL
-# -----------------------------------------------------------------------
-"""
-A class to remove ambiguation in text analysis
-"""
-if __name__ == "__main__":
-    import sys
-
-    sys.path.append("../")
-    sys.path.append("../support")
-
-# ~ import qalsadi.disambig_const as dconst
-from . import disambig_const as dconst
 import naftawayh.wordtag
 
+DISAMBIGUATATION_TABLE = {
+    # إذا كانت الكلمة الحالية "أن" تكون "أنْ" حرف نصب إذا سبقت فعلا
+    # وتكون أنّ، من أخوات إنّ إذا كان ما بعدها اسما
+    "أن": {
+        "verb": {"tag": "t", "vocalized": "أَنْ"},
+        "noun": {"tag": "t", "vocalized": "أَنَّ"},
+        "previous": {
+            # أنّ
+            "غير": "أَنَّ",
+            "لو": "أَنَّ",
+            "لولا": "أَنَّ",
+            "بما": "أَنَّ",
+            "ربما": "أَنَّ",
+            "لعل": "أَنَّ",
+            "ليت": "أَنَّ",
+            "إلا": "أَنَّ",
+            "أم": "أَنَّ",
+            "كما": "أَنَّ",
+            "رغم": "أَنَّ",
+            "بيد": "أَنَّ",
+            "حتى": "أَنَّ",
+            "بحجة": "أَنَّ",
+            "ثم": "أَنَّ",
+            "يعني": "أَنَّ",
+            #                   'من': 'أَنَّ',
+            "في": "أَنَّ",
+            #                   'إلى': 'أَنَّ',
+            # أنْ
+            "هو": "أَنْ",
+            "هي": "أَنْ",
+            "إما": "أَنْ",
+            "أو": "أَنْ",
+            # ~ 'على':'أَنْ',
+            "بلا": "أَنْ",
+            "قبل": "أَنْ",
+            "بعد": "أَنْ",
+            "منذ": "أَنْ",
+            "يجب": "أَنْ",
+            "ينبغي": "أَنْ",
+            "يمكن": "أَنْ",
+            "يكاد": "أَنْ",
+            "تكاد": "أَنْ",
+            "كاد": "أَنْ",
+            "عسى": "أَنْ",
+            "يريد": "أَنْ",
+            "تريد": "أَنْ",
+            "أريد": "أَنْ",
+            "أراد": "أَنْ",
+            "أرادت": "أَنْ",
+            "أوشك": "أَنْ",
+            "أوشكت": "أَنْ",
+        },
+    },
+    "إن": {
+        "verb": {"tag": "t", "vocalized": "إِنْ"},
+        "noun": {"tag": "t", "vocalized": "إِنَّ"},
+        "previous": {
+            # أنّ
+            "والله": "إِنَّ",
+            "ألا": "إِنَّ",
+            "أما": "إِنَّ",
+            "كلا": "إِنَّ",
+            "حتى": "إِنَّ",
+            # أنْ
+            #   'هو':'إِنْ',
+        },
+    },
+    # إذا كانت الكلمة الحالية "من" تكون "مَنْ" حرف استفهام  إذا سبقت فعلا
+    # وتبقى ملتبسة إذا سبقت اسما.
+    "من": {
+        "verb": {"tag": "t", "vocalized": "مَنْ"},
+        "noun": {"tag": "t", "vocalized": "ْمِن"},
+    },
+    # 'ثنا':{'abbr':'ثَنَا',}
+}
 
 class Disambiguator:
     """
@@ -101,7 +151,7 @@ class Disambiguator:
         @return : if word is ambiguous
         @rtype: True/False.
         """
-        return word in dconst.DISAMBIGUATATION_TABLE
+        return word in DISAMBIGUATATION_TABLE
 
     @staticmethod
     def get_disambiguated_by_next_noun(word):
@@ -113,7 +163,7 @@ class Disambiguator:
         @rtype: True/False.
         """
         return (
-            dconst.DISAMBIGUATATION_TABLE.get(word, {})
+            DISAMBIGUATATION_TABLE.get(word, {})
             .get("noun", {})
             .get("vocalized", word)
         )
@@ -130,7 +180,7 @@ class Disambiguator:
         @rtype: True/False.
         """
         return (
-            dconst.DISAMBIGUATATION_TABLE.get(word, {})
+            DISAMBIGUATATION_TABLE.get(word, {})
             .get("previous", {})
             .get(previous, word)
         )
@@ -147,7 +197,7 @@ class Disambiguator:
         @rtype: True/False.
         """
         return (
-            dconst.DISAMBIGUATATION_TABLE.get(word, {})
+            DISAMBIGUATATION_TABLE.get(word, {})
             .get("next", {})
             .get(w_next, word)
         )
@@ -162,7 +212,7 @@ class Disambiguator:
         @rtype: True/False.
         """
         return (
-            dconst.DISAMBIGUATATION_TABLE.get(word, {})
+            DISAMBIGUATATION_TABLE.get(word, {})
             .get("verb", {})
             .get("vocalized", word)
         )
@@ -175,7 +225,7 @@ class Disambiguator:
         @return : if word has an disambiguated.
         @rtype: True/False.
         """
-        return "noun" in dconst.DISAMBIGUATATION_TABLE.get(word, {})  # .has_key('noun')
+        return "noun" in DISAMBIGUATATION_TABLE.get(word, {})  # .has_key('noun')
 
     @staticmethod
     def is_disambiguated_by_next_verb(word):
@@ -185,24 +235,4 @@ class Disambiguator:
         @return : if word has an disambiguated.
         @rtype: True/False.
         """
-        return "verb" in dconst.DISAMBIGUATATION_TABLE.get(word, {})  # .has_key('verb')
-
-
-def mainly():
-    """
-    MAin test
-    """
-    text = "   السلام أن العبادي كان أعلن فتح المنطقة أن السلام مفيد أن يركبوا"
-    # tokenize the text
-    wordlist = text.split(" ")
-    # create the disambiguator instance
-    disamb = Disambiguator()
-    # tag the word list
-    taglist = disamb.tagger.word_tagging(wordlist)
-    print("\t".join(taglist))
-    newwordlist = disamb.disambiguate_words(wordlist, taglist)
-    print(" ".join(newwordlist).encode("utf8"))
-
-
-if __name__ == "__main__":
-    mainly()
+        return "verb" in DISAMBIGUATATION_TABLE.get(word, {})  # .has_key('verb')
