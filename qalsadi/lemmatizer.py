@@ -93,15 +93,15 @@ class Lemmatizer:
         """
         text = u"["
         for rlist in stemmed_synwordlistlist:
-            text += u'\n\t['
+            text += '\n\t['
             for item in rlist:
-                text += u'\n\t\t{'
+                text += '\n\t\t{'
                 stmword = item.__dict__
                 for key in sorted(stmword.keys()):
-                    text += u"\n\t\tu'%s' = u'%s'," % (key, stmword[key])
-                text += u'\n\t\t}'
-            text += u'\n\t]'
-        text += u'\n]'
+                    text += u"\n\t\t'%s' = '%s'," % (key, stmword[key])
+                text += '\n\t\t}'
+            text += '\n\t]'
+        text += '\n]'
         return text
         
     def pprint(self, stemmed_synwordlistlist):

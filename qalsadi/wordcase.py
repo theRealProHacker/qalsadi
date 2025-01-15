@@ -41,7 +41,7 @@ class WordCase:
         #~"""unvocalized form"""
         self.tags = u"",
         #~"""tags of affixes and tags extracted form lexical dictionary"""
-        self.affix_key = u'-'
+        self.affix_key = '-'
         #~affixTags = u""
         #~"""tags of affixes"""
         # stemmed word attributes
@@ -57,33 +57,33 @@ class WordCase:
         self.original = u""
         #~""" original word from lexical dictionary"""
         if result_dict:
-            self.word = result_dict.get('word', u'')
-            self.vocalized = result_dict.get('vocalized', u'')
+            self.word = result_dict.get('word', '')
+            self.vocalized = result_dict.get('vocalized', '')
             if not self.vocalized:
-                self.vocalized = result_dict.get('word', u'T')
-            self.semivocalized = result_dict.get('semivocalized', u'')
-            self.stem = result_dict.get('stem', u'')
-            self.root = result_dict.get('root', u'')
+                self.vocalized = result_dict.get('word', 'T')
+            self.semivocalized = result_dict.get('semivocalized', '')
+            self.stem = result_dict.get('stem', '')
+            self.root = result_dict.get('root', '')
             self.affix = result_dict.get('affix', [])
-            self.tags = u':'.join([
-                result_dict.get('tags', u''),
-                result_dict.get('originaltags', u'')
+            self.tags = ':'.join([
+                result_dict.get('tags', ''),
+                result_dict.get('originaltags', '')
             ])
 
-            self.freq = result_dict.get('freq', u'')
-            self.type = result_dict.get('type', u'')
-            self.original = result_dict.get('original', u'')
-            self.tense = result_dict.get('tense', u'')
-            self.pronoun = result_dict.get('pronoun', u'')
-            self.action = result_dict.get('action', u'')
+            self.freq = result_dict.get('freq', '')
+            self.type = result_dict.get('type', '')
+            self.original = result_dict.get('original', '')
+            self.tense = result_dict.get('tense', '')
+            self.pronoun = result_dict.get('pronoun', '')
+            self.action = result_dict.get('action', '')
 
-            self.object_type = result_dict.get('object_type', u'')
-            self.need = result_dict.get('need', u'')
-            self.number = result_dict.get('number', u'')
-            self.gender = result_dict.get('gender', u'')
-            self.person = result_dict.get('person', u'')
-            self.voice = result_dict.get('voice', u'')
-            self.mood = result_dict.get('mood', u'')
+            self.object_type = result_dict.get('object_type', '')
+            self.need = result_dict.get('need', '')
+            self.number = result_dict.get('number', '')
+            self.gender = result_dict.get('gender', '')
+            self.person = result_dict.get('person', '')
+            self.voice = result_dict.get('voice', '')
+            self.mood = result_dict.get('mood', '')
             self.transitive = result_dict.get('transitive', False)
             
             # calculated attributes
@@ -93,7 +93,7 @@ class WordCase:
     ######################################################################
     #{ Attribut Functions
     ######################################################################
-    def get(self, key, default=u''):
+    def get(self, key, default=''):
         """
         get item by []
         """
@@ -300,7 +300,7 @@ if __name__ == "__main__":
         "type": u"Noun:مصدر",  # the word type
         "original": u"حَيَاةٌ",  #original word from lexical dictionary
         "syntax": u"",  # used for syntaxique analysis porpos
-        u'semantic': u'',
+        'semantic': '',
     }
     stmwrd = WordCase(RDICT)
     print(stmwrd.__dict__)

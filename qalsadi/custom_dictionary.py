@@ -71,7 +71,7 @@ def mainly():
     """
     #ToDo: use the full dictionary of arramooz
     mydict = custom_dictionary('verbs')
-    wordlist = [u"استقلّ", u'استقل', u"كذب"]
+    wordlist = [u"استقلّ", 'استقل', u"كذب"]
     tmp_list = []
     for word in wordlist:
         foundlist = mydict.lookup(word)

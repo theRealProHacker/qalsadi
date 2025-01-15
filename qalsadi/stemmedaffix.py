@@ -44,15 +44,15 @@ class StemmedAffix:
                 self.prefix = aff[1]
                 self.suffix = aff[2]
                 self.encletic = aff[3]
-            self.affix = u'-'.join(
+            self.affix = '-'.join(
                 [self.procletic, self.prefix, self.suffix, self.encletic])
-            self.tags = result_dict.get('tags', u'')
+            self.tags = result_dict.get('tags', '')
             #word type
-            self.tag_type = self.__get_type(result_dict.get('type', u''))
+            self.tag_type = self.__get_type(result_dict.get('type', ''))
             if self.is_verb():
                 self.tag_tense = self.__get_tense(
-                    result_dict.get('tense', u''))
-                #~print "tense:",   result_dict.get('tense', u'').encode('utf8')
+                    result_dict.get('tense', ''))
+                #~print "tense:",   result_dict.get('tense', '').encode('utf8')
         # grouped attributes
         self.tag_number = self.__get_number()  #number (single, dual, plural)
         # majrour, majzoum, marfou3, mansoub, mabni
@@ -117,7 +117,7 @@ class StemmedAffix:
         @return: True if procletic not empty.
         @rtype: Boolean
         """
-        return self.procletic != u''
+        return self.procletic != ''
 
     def get_prefix(self, ):
         """
@@ -173,7 +173,7 @@ class StemmedAffix:
         @return: True if encletic not empty.
         @rtype: Boolean
         """
-        return self.encletic != u'' or self.prefix.startswith(u'ل')
+        return self.encletic != '' or self.prefix.startswith('ل')
 
     def __get_inflect(self, ):
         """
@@ -198,34 +198,34 @@ class StemmedAffix:
         self.tag_inflect = 0
         # invariable
         # if verb
-        if u'الماضي' in self.get_tags():
+        if 'الماضي' in self.get_tags():
             self.tag_inflect += 1
-        elif u'الأمر' in self.get_tags():
+        elif 'الأمر' in self.get_tags():
             self.tag_inflect += 1
-        elif u'مؤكد' in self.get_tags():
+        elif 'مؤكد' in self.get_tags():
             self.tag_inflect += 1
         # invariable noun
-        elif u'مبني' in self.get_tags() and  u"مجهول" not in self.get_tags():
+        elif 'مبني' in self.get_tags() and  u"مجهول" not in self.get_tags():
             self.tag_inflect += 1
         # marfou3
-        if u'مرفوع' in self.get_tags():
+        if 'مرفوع' in self.get_tags():
             self.tag_inflect += 2
         # if is a imperfect and not mansoub or majzoum =>marfou3
         #ToDo:
         # use tense class instead of tag search
-        elif u'مضارع' in self.get_tags() and  u'منصوب'not in self.get_tags()\
-           and u'مجزوم' not in self.get_tags():
+        elif 'مضارع' in self.get_tags() and  'منصوب'not in self.get_tags()\
+           and 'مجزوم' not in self.get_tags():
             self.tag_inflect += 2
         # mansoub
         # noun and verb
-        if u'منصوب' in self.get_tags():
+        if 'منصوب' in self.get_tags():
             self.tag_inflect += 4
         # majrour
         # noun
-        if u'مجرور' in self.get_tags():
+        if 'مجرور' in self.get_tags():
             self.tag_inflect += 8
         # a Verb, verb can't be majrour
-        elif u'مجزوم' in self.get_tags():
+        elif 'مجزوم' in self.get_tags():
             self.tag_inflect += 16
         return self.tag_inflect
 
@@ -247,15 +247,15 @@ class StemmedAffix:
         """
         # غير محدد
         self.tag_number = 0
-        if u'مفرد' in self.get_tags():
+        if 'مفرد' in self.get_tags():
             self.tag_number += 1
-        if u'مثنى' in self.get_tags():
+        if 'مثنى' in self.get_tags():
             self.tag_number += 2
-        if u'جمع' in self.get_tags():
+        if 'جمع' in self.get_tags():
             self.tag_number += 4
-            if u'جمع مذكر سالم' in self.get_tags():
+            if 'جمع مذكر سالم' in self.get_tags():
                 self.tag_number += 8
-            if u'جمع مؤنث سالم' in self.get_tags():
+            if 'جمع مؤنث سالم' in self.get_tags():
                 self.tag_number += 16
         # here the single is not defaut value
         # because it can be used as irregular plural affix
@@ -280,11 +280,11 @@ class StemmedAffix:
         self.tag_type = 0
         if not input_type:
             return 0
-        if u'STOPWORD' in input_type:
+        if 'STOPWORD' in input_type:
             self.tag_type += 1
-        if u'Verb' in input_type:
+        if 'Verb' in input_type:
             self.tag_type += 2
-        if u'Noun' in input_type:
+        if 'Noun' in input_type:
             self.tag_type += 4
         return self.tag_type
 
@@ -310,16 +310,16 @@ class StemmedAffix:
         self.tag_tense = 0
         if not input_tense:
             return 0
-        if u'ماضي' in input_tense:
+        if 'ماضي' in input_tense:
             self.tag_tense = 1
-        elif u'مضارع' in input_tense:
+        elif 'مضارع' in input_tense:
             self.tag_tense = 2
-        elif u'أمر' in input_tense:
+        elif 'أمر' in input_tense:
             self.tag_tense = 4
         # passive
-        if u'مجهول' in input_tense:
+        if 'مجهول' in input_tense:
             self.tag_tense += 8
-        if u'مؤكد' in input_tense:
+        if 'مؤكد' in input_tense:
             self.tag_tense += 16
         return self.tag_tense
 
@@ -336,11 +336,11 @@ class StemmedAffix:
         """
         # غير محدد
         self.tag_gender = 0
-        if u'مذكر' in self.get_tags():
+        if 'مذكر' in self.get_tags():
             self.tag_gender += 1
-        if u'مؤنث' in self.get_tags():
+        if 'مؤنث' in self.get_tags():
             self.tag_gender += 2
-        elif u'جمع مؤنث سالم' in self.get_tags():
+        elif 'جمع مؤنث سالم' in self.get_tags():
             self.tag_gender += 2
 
         return self.tag_gender
@@ -351,7 +351,7 @@ class StemmedAffix:
         @return: has the state defined.
         @rtype: True/False
         """
-        return u'تعريف' in self.get_tags() or u'مضاف' in self.get_tags()
+        return 'تعريف' in self.get_tags() or 'مضاف' in self.get_tags()
 
     def __is3rdperson(self):
         """
@@ -359,7 +359,7 @@ class StemmedAffix:
         @return: has the 3rd persontense.
         @rtype: True/False
         """
-        return u':هي:' in self.get_tags() or u':هو:' in self.get_tags()
+        return ':هي:' in self.get_tags() or ':هو:' in self.get_tags()
 
     def __is1stperson(self):
         """
@@ -367,7 +367,7 @@ class StemmedAffix:
         @return: has the 1st persontense.
         @rtype: True/False
         """
-        return u':أنا:' in self.get_tags()
+        return ':أنا:' in self.get_tags()
 
     def is3rdperson_masculin(self):
         """
@@ -375,7 +375,7 @@ class StemmedAffix:
         @return: has the 3rd persontense.
         @rtype: True/False
         """
-        return u':هو:' in self.get_tags()
+        return ':هو:' in self.get_tags()
 
     def is3rdperson_fem(self):
         """
@@ -383,7 +383,7 @@ class StemmedAffix:
         @return: has the 3rd person feminin.
         @rtype: True/False
         """
-        return u':هي:' in self.get_tags()
+        return ':هي:' in self.get_tags()
 
     def __is_tanwin(self):
         """
@@ -391,7 +391,7 @@ class StemmedAffix:
         @return: has tanwin.
         @rtype: True/False
         """
-        return u'تنوين' in self.get_tags()
+        return 'تنوين' in self.get_tags()
 
     def __has_jar(self):
         """
@@ -399,7 +399,7 @@ class StemmedAffix:
         @return: has jar.
         @rtype: True/False
         """
-        return u'جر:' in self.get_tags(
+        return 'جر:' in self.get_tags(
         )  #or self.procletic.startswith(araby.LAM)
 
     def __has_istfham(self):
@@ -408,7 +408,7 @@ class StemmedAffix:
         @return: has jar.
         @rtype: True/False
         """
-        return u'استفهام' in self.get_tags()
+        return 'استفهام' in self.get_tags()
 
     def __is_break(self):
         """
@@ -424,7 +424,7 @@ class StemmedAffix:
         # فاصلة أو نقطة
         if self.has_procletic() and self.has_jar():
             return True
-        elif u'عطف' in self.get_tags() or araby.WAW in self.get_procletic() \
+        elif 'عطف' in self.get_tags() or araby.WAW in self.get_procletic() \
         or araby.FEH in self.get_procletic():
             return True
         elif self.__has_istfham():
@@ -439,7 +439,7 @@ class StemmedAffix:
         @return: has the state added.
         @rtype: True/False
         """
-        return u'مضاف' in self.get_tags() or u'اسم إضافة' in self.get_tags()
+        return 'مضاف' in self.get_tags() or 'اسم إضافة' in self.get_tags()
 
     def __is_3tf(self):
         """
@@ -447,7 +447,7 @@ class StemmedAffix:
         @return: is plural.
         @rtype: True/False
         """
-        return u'عطف' in self.get_tags()
+        return 'عطف' in self.get_tags()
 
     def is_3tf(self):
         """
@@ -463,7 +463,7 @@ class StemmedAffix:
     #~@return: is plural.
     #~@rtype: True/False
     #~"""
-    #~return  u'جمع' in self.get_tags()
+    #~return  'جمع' in self.get_tags()
 
     def get_tags(self, ):
         """
@@ -571,7 +571,7 @@ class StemmedAffix:
         @rtype: True/False
         """
         return bool(self.tag_tense % 2)
-        #~return   u'ماضي'in self.get_tags()
+        #~return   'ماضي'in self.get_tags()
 
     def is_present(self):
         """
@@ -580,7 +580,7 @@ class StemmedAffix:
         @rtype: True/False
         """
         return bool(self.tag_tense // 2 % 2)
-        #~return  u'مضارع' in self.get_tags()
+        #~return  'مضارع' in self.get_tags()
 
     def is_passive(self):
         """
@@ -589,7 +589,7 @@ class StemmedAffix:
         @rtype: True/False
         """
         return bool(self.tag_tense // 8 % 2)
-        #~return  u'مجهول'in self.get_tags()
+        #~return  'مجهول'in self.get_tags()
 
     def is3rdperson(self):
         """
@@ -714,8 +714,8 @@ class StemmedAffix:
         text = u"{"
         stmword = self.__dict__
         for key in stmword.keys():
-            text += u"\n\t\tu'%s'  =  u'%s', " % (key, stmword[key])
-        text += u'\n\t\t}'
+            text += u"\n\t\t'%s'  =  '%s', " % (key, stmword[key])
+        text += '\n\t\t}'
         return text.encode('utf8')
 
 
@@ -737,7 +737,7 @@ if __name__ == "__main__":
         "type": "Noun:مصدر",  # the word type
         "original": "حَيَاةٌ",  #original word from lexical dictionary
         "syntax": "",  # used for syntaxique analysis porpos
-        u'semantic': '',
+        'semantic': '',
     }
 
     #~print stmwrd

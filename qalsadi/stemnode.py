@@ -22,7 +22,7 @@ from .wordcase import  WordCase
 from .stemmedword import StemmedWord
 
 def ispunct(word):
-    return word in u'!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~،؟'
+    return word in '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~،؟'
 #@deprecated_func
 def most_frequent2(List): 
     return max(set(List), key = List.count) 
@@ -629,7 +629,7 @@ class StemNode:
                 
     def __repr__(self):
         text = u"\n'%s':%s, [%s-%s]{V:%d, N:%d, S:%d} " % (
-            self.__dict__['word'], u', '.join(self.originals), 
+            self.__dict__['word'], ', '.join(self.originals), 
             self.get_word_type(), self.get_break_type(), self.count["verb"], 
             self.count["noun"], self.count["stopword"], )
         text += repr(self.syntax_mark)

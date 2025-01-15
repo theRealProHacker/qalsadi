@@ -40,7 +40,7 @@ def print_md_table(myDict, colList=None):
        #~ myList.append([unicode(item[col] or '') for col in colList])
        myList.append([str(item[col] or '') for col in colList])
    colSize = [max(map(len,col)) for col in zip(*myList)]
-   formatStr = u' | '.join(["{{:<{}}}".format(i) for i in colSize])
+   formatStr = ' | '.join(["{{:<{}}}".format(i) for i in colSize])
    myList.insert(1, ['-' * i for i in colSize]) # Seperating line
    for item in myList:
        print(formatStr.format(*item).encode('utf8'))
@@ -65,17 +65,17 @@ def print_table(myDict, colList=None, sep=u"\t"):
                 row.append(str(item[col] or ''))
         myList.append(row)
     for item in myList:
-        #~ print(u'\t'.join(item).encode('utf8'))
+        #~ print('\t'.join(item).encode('utf8'))
         if sys.version_info >= (3, 0):
-            print(u'\t'.join(item))#.encode('utf8'))
+            print('\t'.join(item))#.encode('utf8'))
         else:
-            print(u'\t'.join(item).encode('utf8'))
+            print('\t'.join(item).encode('utf8'))
 
 def main(args):
-    d = [{'enc': u'', 'stem_conj': u'يأمرهم', 'pro': u'', 'prefix': u'', 'verb': u'يأمرهم', 'stem_comp': u'يأمرهم', 'trans_comp': False, 'suffix': u''},
- {'enc': u'', 'stem_conj': u'أمرهم', 'pro': u'', 'prefix': u'ي', 'verb': u'يأمرهم', 'stem_comp': u'يأمرهم', 'trans_comp': False, 'suffix': u''},
- {'enc': u'هم', 'stem_conj': u'أمر', 'pro': u'', 'prefix': u'ي', 'verb': u'يأمرهم', 'stem_comp': u'يأمر', 'trans_comp': True, 'suffix': u''},
- {'enc': u'هم', 'stem_conj': u'يأمر', 'pro': u'', 'prefix': u'', 'verb': u'يأمرهم', 'stem_comp': u'يأمر', 'trans_comp': True, 'suffix': u''}]
+    d = [{'enc': '', 'stem_conj': 'يأمرهم', 'pro': '', 'prefix': '', 'verb': 'يأمرهم', 'stem_comp': 'يأمرهم', 'trans_comp': False, 'suffix': ''},
+ {'enc': '', 'stem_conj': 'أمرهم', 'pro': '', 'prefix': 'ي', 'verb': 'يأمرهم', 'stem_comp': 'يأمرهم', 'trans_comp': False, 'suffix': ''},
+ {'enc': 'هم', 'stem_conj': 'أمر', 'pro': '', 'prefix': 'ي', 'verb': 'يأمرهم', 'stem_comp': 'يأمر', 'trans_comp': True, 'suffix': ''},
+ {'enc': 'هم', 'stem_conj': 'يأمر', 'pro': '', 'prefix': '', 'verb': 'يأمرهم', 'stem_comp': 'يأمر', 'trans_comp': True, 'suffix': ''}]
     print_table(d)
     return 0
 

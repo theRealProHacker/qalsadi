@@ -102,7 +102,7 @@ class stopword_affixer:
         #gererate the suffix without I'rab short mark
         # here we lookup with given suffix because the new suffix is
         # changed and can be not found in table
-        if u'متحرك' in self.suffixes_tags[suffix]['tags']:
+        if 'متحرك' in self.suffixes_tags[suffix]['tags']:
             suffix_non_irab_mark = araby.strip_lastharaka(newsuffix)
         else:
             suffix_non_irab_mark = newsuffix
@@ -275,9 +275,9 @@ class stopword_affixer:
         if u"تعريف" in affix_tags and stop_tuple['defined']:
             return False
         #~preposition
-        if u'جر' in affix_tags and stop_tuple['is_inflected'] and not u"مجرور"  in affix_tags:
+        if 'جر' in affix_tags and stop_tuple['is_inflected'] and not u"مجرور"  in affix_tags:
             return False
-        if u'جر' in affix_tags and not stop_tuple['preposition']:
+        if 'جر' in affix_tags and not stop_tuple['preposition']:
             return False
         if u"متحرك" in affix_tags and not stop_tuple['is_inflected']:
             return False

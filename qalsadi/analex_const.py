@@ -12,7 +12,7 @@
 #-------------------------------------------------------------------------------
 """Constants for analex"""
 
-PARTIAL_VOCALIZED_TAG = u'مدخل مشكول'
+PARTIAL_VOCALIZED_TAG = 'مدخل مشكول'
 #fields names and abbriviations
 
 ANALEX_FIELDS_WORD = {

@@ -54,16 +54,16 @@ def validate_tags(noun_tuple, affix_tags, proclitic_nm, enclitic_nm,
     proclitic = proclitic_nm
     #~ enclitic = enclitic_nm
     #~ suffix = suffix_nm
-    if u'تنوين' in affix_tags and noun_tuple['mamnou3_sarf']:
+    if 'تنوين' in affix_tags and noun_tuple['mamnou3_sarf']:
         return False
     # ألجمع السالم لا يتصل بجمع التكسير
-    if noun_tuple['number'] in (u'جمع', u'جمع تكسير'):
+    if noun_tuple['number'] in ('جمع', 'جمع تكسير'):
 
-        if u'جمع مؤنث سالم' in affix_tags:
+        if 'جمع مؤنث سالم' in affix_tags:
             return False
-        if u'جمع مذكر سالم' in affix_tags:
+        if 'جمع مذكر سالم' in affix_tags:
             return False
-        if u'مثنى' in affix_tags:
+        if 'مثنى' in affix_tags:
             return False
     #تدقيق الغضافة إلى الضمائر المتصلة
     if enclitic_nm in (u"هم", u"هن", u"كما", u"كم",
@@ -84,7 +84,7 @@ def validate_tags(noun_tuple, affix_tags, proclitic_nm, enclitic_nm,
     #التاء المربوطة لا تتصل بجمع التكسير
     if suffix_nm == ar.TEH_MARBUTA and noun_tuple['number'] == u"جمع":
         return False
-    # elif  u'مضاف' in affix_tags and not noun_tuple['annex']:
+    # elif  'مضاف' in affix_tags and not noun_tuple['annex']:
     # return False
 
 
@@ -111,16 +111,16 @@ def check_clitic_affix(proclitic_nm, enclitic, suffix):
         #~ return False
     # avoid masculin regular plural with unallowed case
     # تجنب جمع المذكر السالم للكلمات التي لا تقبلها
-    #~ if u'جمع مذكر سالم' in SNC.CONJ_SUFFIX_LIST_TAGS[suffix]['tags']\
+    #~ if 'جمع مذكر سالم' in SNC.CONJ_SUFFIX_LIST_TAGS[suffix]['tags']\
       #~ and not noun_tuple['masculin_plural']:
         #~ return False
                 #~ # التنوين لا يتطابق مع الممنوع من الصرف
     # print "stem_noun", noun_tuple["unvocalized"].encode('utf8'), noun_tuple['masculin_plural'],type(noun_tuple['masculin_plural']),    bool(noun_tuple['masculin_plural'])
-    #~ if u'تنوين' in SNC.CONJ_SUFFIX_LIST_TAGS[suffix]['tags'] and noun_tuple['mamnou3_sarf']:
+    #~ if 'تنوين' in SNC.CONJ_SUFFIX_LIST_TAGS[suffix]['tags'] and noun_tuple['mamnou3_sarf']:
         #~ return False
     #if not proclitic and not enclitic:  return True
     #use cache for affix verification
-    #~ affix = u'-'.join([
+    #~ affix = '-'.join([
         #~ proclitic_nm, enclitic, suffix,
         #~ str(bool(noun_tuple['mamnou3_sarf']))
     #~ ])
@@ -137,7 +137,7 @@ def check_clitic_affix(proclitic_nm, enclitic, suffix):
     # add this cases to suffix tags
     suffix_tags += SNC.CONJ_SUFFIX_LIST_TAGS[suffix].get("cases", ())
     if u"تعريف" in proclitic_tags and u"مضاف" in suffix_tags and \
-    u'مضاف' not in enclitic_tags:
+    'مضاف' not in enclitic_tags:
         return False
     elif u"تعريف" in proclitic_tags and u"تنوين" in suffix_tags:
         return False
@@ -249,7 +249,7 @@ class muwaled:
         #gererate the suffix without I'rab short mark
         # here we lookup with given suffix because the new suffix is
         # changed and can be not found in table
-        if u'متحرك' in SNC.CONJ_SUFFIX_LIST_TAGS[suffix]['tags']:
+        if 'متحرك' in SNC.CONJ_SUFFIX_LIST_TAGS[suffix]['tags']:
             suffix_non_irab_mark = ar.strip_lastharaka(newsuffix)
         else:
             suffix_non_irab_mark = newsuffix
@@ -396,8 +396,8 @@ class muwaled:
 
         #add shadda if the first letter is sunny and the proclitic
         #contains AL definition mark
-        if u'تعريف' in SNC.COMP_PREFIX_LIST_TAGS[proclitic]["tags"] and ar.is_sun(noun[0]):
-            noun = u''.join([noun[0], ar.SHADDA, noun[1:]])
+        if 'تعريف' in SNC.COMP_PREFIX_LIST_TAGS[proclitic]["tags"] and ar.is_sun(noun[0]):
+            noun = ''.join([noun[0], ar.SHADDA, noun[1:]])
             #strip the Skun from the lam
             if proclitic_voc.endswith(ar.SUKUN):
                 proclitic_voc = proclitic_voc[:-1]

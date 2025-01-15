@@ -473,7 +473,7 @@ class Analex:
                     'semivocalized':
                     word,
                     'tags':
-                    u'%s'%error_code,
+                    '%s'%error_code,
                     'type':
                     'unknown',
                     'root':

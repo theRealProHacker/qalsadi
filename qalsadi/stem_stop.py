@@ -217,9 +217,9 @@ class StopWordStemmer:
                                     'semivocalized':
                                     semi_vocalized,                                     
                                     'tags':
-                                    u':'.join(affix_tags),
+                                    ':'.join(affix_tags),
                                     'type':
-                                    u':'.join(
+                                    ':'.join(
                                         ['STOPWORD', stop_tuple['word_type']]),
                                     'freq':
                                     'freqstopword',  # to note the frequency type
@@ -252,7 +252,7 @@ class StopWordStemmer:
         """
         #if not procletic and not encletic:  return True
         #use cache for affix verification
-        affix = u'-'.join([procletic, encletic, suffix])
+        affix = '-'.join([procletic, encletic, suffix])
         if affix in self.cache_affixes_verification:
             return self.cache_affixes_verification[affix]
 
@@ -372,7 +372,7 @@ class StopWordStemmer:
         #gererate the suffix without I'rab short mark
         # here we lookup with given suffix because the new suffix is
         # changed and can be not found in table
-        if u'متحرك' in ssconst.CONJ_SUFFIX_LIST_TAGS[suffix]['tags']:
+        if 'متحرك' in ssconst.CONJ_SUFFIX_LIST_TAGS[suffix]['tags']:
             suffix_non_irab_mark = araby.strip_lastharaka(newsuffix)
         else:
             suffix_non_irab_mark = newsuffix
@@ -545,9 +545,9 @@ class StopWordStemmer:
         if u"تعريف" in affix_tags and stop_tuple['defined']:
             return False
         #~preposition
-        if u'جر' in affix_tags and stop_tuple['is_inflected'] and not u"مجرور"  in affix_tags:
+        if 'جر' in affix_tags and stop_tuple['is_inflected'] and not u"مجرور"  in affix_tags:
             return False
-        if u'جر' in affix_tags and not stop_tuple['preposition']:
+        if 'جر' in affix_tags and not stop_tuple['preposition']:
             return False
         if u"متحرك" in affix_tags and not stop_tuple['is_inflected']:
             return False

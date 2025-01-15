@@ -19,14 +19,14 @@ import sphinx_rtd_theme
 
 # -- Project information -----------------------------------------------------
 
-project = u'Qalsadi Arabic Morphological Analyzer and lemmatizer for Python'
-copyright = u'2021, Taha Zerrouki'
-author = u'Taha Zerrouki'
+project = 'Qalsadi Arabic Morphological Analyzer and lemmatizer for Python'
+copyright = '2021, Taha Zerrouki'
+author = 'Taha Zerrouki'
 
 # The short X.Y version
-version = u'0.4.4'
+version = '0.4.4'
 # The full version, including alpha/beta/rc tags
-release = u'0.4.4'
+release = '0.4.4'
 
 
 # -- General configuration ---------------------------------------------------
@@ -70,7 +70,7 @@ language = None
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = [u'_build', 'Thumbs.db', '.DS_Store']
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = None
@@ -136,8 +136,8 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'QalsadiAraMorph.tex', u'Qalsadi Arabic Morphological Analyzer and lemmatizer for Python',
-     u'Taha Zerrouki', 'manual'),
+    (master_doc, 'QalsadiAraMorph.tex', 'Qalsadi Arabic Morphological Analyzer and lemmatizer for Python',
+     'Taha Zerrouki', 'manual'),
 ]
 
 
@@ -146,7 +146,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'qalsadi', u'Qalsadi Arabic Morphological Analyzer and lemmatizer for Python',
+    (master_doc, 'qalsadi', 'Qalsadi Arabic Morphological Analyzer and lemmatizer for Python',
      [author], 1)
 ]
 
@@ -157,7 +157,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'Qalsadi', u'Qalsadi Arabic Morphological Analyzer and lemmatizer for Python',
+    (master_doc, 'Qalsadi', 'Qalsadi Arabic Morphological Analyzer and lemmatizer for Python',
      author, 'Taha Zerrouki', 'Qalsadi Arabic Morphological Analyzer and lemmatizer for Python.',
      'Miscellaneous'),
 ]

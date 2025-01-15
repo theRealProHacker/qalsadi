@@ -142,7 +142,7 @@ class VerbStemmer:
                 stem = verb[seg[0]:seg[1]]
                 enclitic = verb[seg[1]:]
                 #~ print "stem_verb affix 93", "-".join([proclitic, stem, enclitic]).encode('utf8')
-                #~secondsuffix = u''
+                #~secondsuffix = ''
                 # حالة الفعل المتعدي لمفعولين
                 if enclitic in SVC.TABLE_DOUBLE_TRANSITIVE_SUFFIX:
                     firstsuffix = \
@@ -343,7 +343,7 @@ class VerbStemmer:
         #~ tags += SVC.COMP_SUFFIX_LIST_TAGS[enclitic]['tags']
         # remove empty tags
         tags = [t for t in tags if t]
-        tags = u':'.join(tags)
+        tags = ':'.join(tags)
         return tags
         
     def __get_infinitive_verb_by_stem(self, verb, transitive):
@@ -383,7 +383,7 @@ class VerbStemmer:
         liste = []
         for item in listetemp:
             #~ #print item['transitive'], transitive
-            if item['transitive'] in (u'y', 1) or not transitive:
+            if item['transitive'] in ('y', 1) or not transitive:
                 liste.append(item)
         self.verb_dict_cache[verb_key] = liste
         return liste
@@ -423,7 +423,7 @@ class VerbStemmer:
         stem_stamp = self.verb_stamp(stem_conj)
         for item in infverb_dict:
             #~ print('****')
-            #~ print((u'\t'.join([item['stamp'], stem_stamp])).encode('utf8'))
+            #~ print(('\t'.join([item['stamp'], stem_stamp])).encode('utf8'))
             #~ if self.verb_stamp(item['stamp']) == stem_stamp:
             if item['stamp'] == stem_stamp:
                 tmp.append(item)
@@ -768,13 +768,13 @@ def mainly():
     Test main"""
     #ToDo: use the full dictionary of arramooz
     wordlist = [
-        #~ u'يضرب',
-        u'يضربه',
-        u'يضربك',
+        #~ 'يضرب',
+        'يضربه',
+        'يضربك',
         #~ u"استقلّ",
-        u'استقل',
-        u'ويستخدمونها',
-        u'اتركني'
+        'استقل',
+        'ويستخدمونها',
+        'اتركني'
     ]
     verbstemmer = VerbStemmer()
     verbstemmer.set_debug(True)
@@ -785,9 +785,9 @@ def mainly():
         result = verbstemmer.stemming_verb(word)
         for analyzed in result:
             #~ print(repr(analyzed).encode('utf8'))
-            #~ print(u'\n'.join(analyzed.__dict__.keys()))
+            #~ print('\n'.join(analyzed.__dict__.keys()))
             for key in analyzed.__dict__.keys():
-                print(u'\t'.join([key, unicode(
+                print('\t'.join([key, unicode(
                     analyzed.__dict__[key])]).encode('utf8'))
             print()
             print()

@@ -36,11 +36,11 @@ class dictWord:
 
         if resultDict:
 
-            self.word   = resultDict.get('word',u'');
-            self.vocalized  = resultDict.get('vocalized',u'');
-            self.freq   = resultDict.get('freq',u'');
-            self.type   = resultDict.get('type',u'');
-            self.original   = resultDict.get('original',u'');
+            self.word   = resultDict.get('word','');
+            self.vocalized  = resultDict.get('vocalized','');
+            self.freq   = resultDict.get('freq','');
+            self.type   = resultDict.get('type','');
+            self.original   = resultDict.get('original','');
 
         # calculated  attributes 
         self.tagStopWord    = self._isStopWord();
@@ -95,7 +95,7 @@ class dictWord:
         @rtype: True/False;
         """
         word=self.getWord();
-        return word==u"" or  word[0] in (u'.',u'?', u';', u':');
+        return word==u"" or  word[0] in ('.','?', ';', ':');
 
     def _isNoun(self):
         """
@@ -103,7 +103,7 @@ class dictWord:
         @return: is a noun.
         @rtype: True/False;
         """         
-        return u'Noun' in self.getType()  or  u'اسم' in self.getTags();
+        return 'Noun' in self.getType()  or  'اسم' in self.getTags();
 
     def _isAdj(self):
         """
@@ -112,14 +112,14 @@ class dictWord:
         @rtype: True/False;
         """
         type=self.getType();
-        return u'صفة' in type or u'اسم مفعول' in type or u'اسم فاعل' in type or u'صيغة مبالغة' in type or u'منسوب' in type;
+        return 'صفة' in type or 'اسم مفعول' in type or 'اسم فاعل' in type or 'صيغة مبالغة' in type or 'منسوب' in type;
     def _isStopWord(self):
         """
         Return True if the word is a stop word.
         @return: is a noun.
         @rtype: True/False;
         """         
-        return u'STOPWORD' in self.getType();
+        return 'STOPWORD' in self.getType();
 
     def _isVerb(self):
         """
@@ -127,7 +127,7 @@ class dictWord:
         @return: is a verb.
         @rtype: True/False;
         """         
-        return  u'Verb' in self.getType();
+        return  'Verb' in self.getType();
 
     def _isMasdar(self):
         """
@@ -135,7 +135,7 @@ class dictWord:
         @return: is a masdar.
         @rtype: True/False;
         """         
-        return u'مصدر' in self.getType();
+        return 'مصدر' in self.getType();
 
     def _isProperNoun(self):
         """
@@ -143,7 +143,7 @@ class dictWord:
         @return: is a proper noun.
         @rtype: True/False;
         """         
-        return u'noun_prop' in self.getType();
+        return 'noun_prop' in self.getType();
 
 
 
@@ -159,7 +159,7 @@ class dictWord:
         # a pounctuation can has the transparent tag like quotes., which havent any gramatical effect.
         # Todo 
         # حالة بذلك الرجل
-        return  u'شفاف' in self.getTags() or u'إشارة'in self.getTags();
+        return  'شفاف' in self.getTags() or 'إشارة'in self.getTags();
 
     def _isBrokenPlural(self):
         """
@@ -167,7 +167,7 @@ class dictWord:
         @return: is broken plural.
         @rtype: True/False;
         """
-        return  u'جمع تكسير' in self.getTags();
+        return  'جمع تكسير' in self.getTags();
 
     def _isMamnou3(self):
         """
@@ -175,7 +175,7 @@ class dictWord:
         @return: is mamnou3 min sarf.
         @rtype: True/False;
         """
-        return  u'ممنوع من الصرف' in self.getTags();
+        return  'ممنوع من الصرف' in self.getTags();
 
     def _isPlural(self):
         """
@@ -200,7 +200,7 @@ class dictWord:
         @return: is a verb.
         @rtype: True/False;
         """         
-        return  u'POUNCT' in self.getType();        
+        return  'POUNCT' in self.getType();        
     def _isBreak(self):
         """
         Return True if the word has break.
@@ -385,7 +385,7 @@ class dictWord:
         @return: is a noun.
         @rtype: True/False;
         """         
-        return (u'unknown' in self.getType());
+        return ('unknown' in self.getType());
     def isNoun(self):
         """
         Return True if the word is a noun.
@@ -531,8 +531,8 @@ class dictWord:
         stmword = self.__dict__;
         stmword['affix']='Taha';
         for key in stmword.keys():
-                text+= u"\n\t\tu'%s' = u'%s',"%(key, stmword[key]);
-        text+= u'\n\t\t}';
+                text+= u"\n\t\t'%s' = '%s',"%(key, stmword[key]);
+        text+= '\n\t\t}';
         return text.encode('utf8');
 
 if __name__=="__main__":
@@ -553,7 +553,7 @@ if __name__=="__main__":
             "type": "Noun:مصدر",    # the word type
             "original": "حَيَاةٌ",      #original word from lexical dictionary
             "syntax":"",                # used for syntaxique analysis porpos
-            u'semantic':'',
+            'semantic':'',
             };
     stmwrd=stemmedWord(rdict);
     print(stmwrd.getDict())

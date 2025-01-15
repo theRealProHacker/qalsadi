@@ -289,12 +289,12 @@ class NounStemmer:
                             'original': word_seg['noun_tuple']['vocalized'],  #original,
                             'vocalized': vocalized,
                             'semivocalized': semi_vocalized,
-                            'tags':  u':'.join(voc_affix_case),
-                            'type':  u':'.join(['Noun', word_seg['noun_tuple']['wordtype']]),
+                            'tags':  ':'.join(voc_affix_case),
+                            'type':  ':'.join(['Noun', word_seg['noun_tuple']['wordtype']]),
                             'number': word_seg['noun_tuple']['number'],
                             'gender':  word_seg['noun_tuple']['gender'],
                             'freq': 'freqnoun',  # to note the frequency type
-                            'originaltags':  u':'.join(original_tags),
+                            'originaltags':  ':'.join(original_tags),
                             'syntax': '',
                         }))
         if not detailed_result:
@@ -328,17 +328,17 @@ class NounStemmer:
             return False
         # avoid masculin regular plural with unallowed case
         # تجنب جمع المذكر السالم للكلمات التي لا تقبلها
-        if u'جمع مذكر سالم' in SNC.CONJ_SUFFIX_LIST_TAGS[suffix]['tags']\
+        if 'جمع مذكر سالم' in SNC.CONJ_SUFFIX_LIST_TAGS[suffix]['tags']\
           and not noun_tuple['masculin_plural']:
             return False
                     # التنوين لا يتطابق مع الممنوع من الصرف
         #~ print "XXXstem_noun", noun_tuple["unvocalized"].encode('utf8'), noun_tuple['mamnou3_sarf'],type(noun_tuple['mamnou3_sarf']),    bool(noun_tuple['mamnou3_sarf'])
         #~ print "stem_noun", noun_tuple["unvocalized"].encode('utf8'), noun_tuple['masculin_plural'],type(noun_tuple['masculin_plural']),    bool(noun_tuple['masculin_plural'])
-        if u'تنوين' in SNC.CONJ_SUFFIX_LIST_TAGS[suffix]['tags'] and noun_tuple['mamnou3_sarf']:
+        if 'تنوين' in SNC.CONJ_SUFFIX_LIST_TAGS[suffix]['tags'] and noun_tuple['mamnou3_sarf']:
             return False
         #if not proclitic and not enclitic:  return True
         #use cache for affix verification
-        affix = u'-'.join([
+        affix = '-'.join([
             proclitic_nm, enclitic, suffix,
             str(bool(noun_tuple['mamnou3_sarf']))
         ])
@@ -355,7 +355,7 @@ class NounStemmer:
         # add this cases to suffix tags
         suffix_tags += SNC.CONJ_SUFFIX_LIST_TAGS[suffix].get("cases", ())
         if u"تعريف" in proclitic_tags and u"مضاف" in suffix_tags and \
-        u'مضاف' not in enclitic_tags:
+        'مضاف' not in enclitic_tags:
             self.cache_affixes_verification[affix] = False
         elif u"تعريف" in proclitic_tags and u"تنوين" in suffix_tags:
             self.cache_affixes_verification[affix] = False
@@ -489,7 +489,7 @@ class NounStemmer:
         #gererate the suffix without I'rab short mark
         # here we lookup with given suffix because the new suffix is
         # changed and can be not found in table
-        if u'متحرك' in SNC.CONJ_SUFFIX_LIST_TAGS[suffix]['tags']:
+        if 'متحرك' in SNC.CONJ_SUFFIX_LIST_TAGS[suffix]['tags']:
             suffix_non_irab_mark = ar.strip_lastharaka(newsuffix)
         else:
             suffix_non_irab_mark = newsuffix
@@ -641,8 +641,8 @@ class NounStemmer:
 
         #add shadda if the first letter is sunny and the proclitic
         #contains AL definition mark
-        if u'تعريف' in SNC.COMP_PREFIX_LIST_TAGS[proclitic]["tags"] and ar.is_sun(noun[0]):
-            noun = u''.join([noun[0], ar.SHADDA, noun[1:]])
+        if 'تعريف' in SNC.COMP_PREFIX_LIST_TAGS[proclitic]["tags"] and ar.is_sun(noun[0]):
+            noun = ''.join([noun[0], ar.SHADDA, noun[1:]])
             #strip the Skun from the lam
             if proclitic_voc.endswith(ar.SUKUN):
                 proclitic_voc = proclitic_voc[:-1]
@@ -764,16 +764,16 @@ class NounStemmer:
         proclitic = proclitic_nm
         #~ enclitic = enclitic_nm
         #~ suffix = suffix_nm
-        if u'تنوين' in affix_tags and noun_tuple['mamnou3_sarf']:
+        if 'تنوين' in affix_tags and noun_tuple['mamnou3_sarf']:
             return False
         # ألجمع السالم لا يتصل بجمع التكسير
-        if noun_tuple['number'] in (u'جمع', u'جمع تكسير'):
+        if noun_tuple['number'] in ('جمع', 'جمع تكسير'):
 
-            if u'جمع مؤنث سالم' in affix_tags:
+            if 'جمع مؤنث سالم' in affix_tags:
                 return False
-            if u'جمع مذكر سالم' in affix_tags:
+            if 'جمع مذكر سالم' in affix_tags:
                 return False
-            if u'مثنى' in affix_tags:
+            if 'مثنى' in affix_tags:
                 return False
         #تدقيق الغضافة إلى الضمائر المتصلة
         if enclitic_nm in (u"هم", u"هن", u"كما", u"كم",
@@ -794,26 +794,26 @@ class NounStemmer:
         #التاء المربوطة لا تتصل بجمع التكسير
         if suffix_nm == ar.TEH_MARBUTA and noun_tuple['number'] == u"جمع":
             return False
-        # elif  u'مضاف' in affix_tags and not noun_tuple['annex']:
+        # elif  'مضاف' in affix_tags and not noun_tuple['annex']:
         # return False
 
 
     #todo
-    # u'mankous':8,
-    # u'feminable':9, *
-    # u'number':10,
-    # u'dualable':11, *
-    # u'masculin_plural':12, *
-    # u'feminin_plural':13, *
-    # u'broken_plural':14,
-    # u'mamnou3_sarf':15,
-    # u'relative':16,
-    # u'w_suffix':17,
-    # u'hm_suffix':18, *
-    # u'kal_prefix':19, *
-    # u'ha_suffix':20, *
-    # u'k_suffix':21, *
-    # u'annex':22,
+    # 'mankous':8,
+    # 'feminable':9, *
+    # 'number':10,
+    # 'dualable':11, *
+    # 'masculin_plural':12, *
+    # 'feminin_plural':13, *
+    # 'broken_plural':14,
+    # 'mamnou3_sarf':15,
+    # 'relative':16,
+    # 'w_suffix':17,
+    # 'hm_suffix':18, *
+    # 'kal_prefix':19, *
+    # 'ha_suffix':20, *
+    # 'k_suffix':21, *
+    # 'annex':22,
         return True
 
 
@@ -822,12 +822,12 @@ def mainly():
     Test main"""
     #ToDo: use the full dictionary of arramooz
     wordlist = [
-        u'يضرب',
-        u'الكتاب',
-        u'الاستخدام',
+        'يضرب',
+        'الكتاب',
+        'الاستخدام',
         u"فاستعمالهم",
-        u'ضرب',
-        u'لأكلهم',
+        'ضرب',
+        'لأكلهم',
     ]
     nounstemmer = NounStemmer()
     nounstemmer.set_debug(True)
@@ -838,9 +838,9 @@ def mainly():
         result = nounstemmer.stemming_noun(word)
         for analyzed in result:
             #~ print(repr(analyzed).encode('utf8')) #.decode('unicode-escape')
-            #~ print(u'\n'.join(analyzed.__dict__.keys()))
+            #~ print('\n'.join(analyzed.__dict__.keys()))
             for key in analyzed.__dict__.keys():
-                print((u'\t'.join([
+                print(('\t'.join([
                     key,
                     repr(analyzed.__dict__[key]).decode('unicode-escape')
                 ]))).encode('utf8')

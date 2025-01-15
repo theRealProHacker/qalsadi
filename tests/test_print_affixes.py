@@ -17,18 +17,18 @@ class ArabicRepr(reprlib.Repr):
         >>> word = u"السلام عليكم ورحمة الله"
         >>> wordlist = word.split(" ")
         >>> print wordlist
-        [u'\u0627\u0644\u0633\u0644\u0627\u0645', u'\u0639\u0644\u064a\u0643\u0645', u'\u0648\u0631\u062d\u0645\u0629', u'\u0627\u0644\u0644\u0647']
+        ['\u0627\u0644\u0633\u0644\u0627\u0645', '\u0639\u0644\u064a\u0643\u0645', '\u0648\u0631\u062d\u0645\u0629', '\u0627\u0644\u0644\u0647']
         >>> print repr(wordlist)
-        [u'السلام', u'عليكم', u'ورحمة', u'الله']
+        ['السلام', 'عليكم', 'ورحمة', 'الله']
     """
     def repr_unicode(self, obj, level):
         "Modify unicode display "
-        return u"u'%s'" % obj
+        return u"'%s'" % obj
 reprAr = ArabicRepr()
 repra = reprAr.repr
 
 def myprint(wordlist):
-    JOINER = u', '
+    JOINER = ', '
     l = set([araby.strip_tashkeel(x) for x in wordlist])
     print JOINER.join(sorted(l)).encode('utf8')
 
