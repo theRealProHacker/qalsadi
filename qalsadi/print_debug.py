@@ -25,6 +25,7 @@
 from builtins import str
 import sys
 
+
 def print_md_table(myDict, colList=None):
     """Pretty print a list of dictionaries (myDict) as a dynamically sized table.
     If column names (colList) aren't specified, they will show in random order.

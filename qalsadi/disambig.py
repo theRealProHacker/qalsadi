@@ -76,6 +76,7 @@ DISAMBIGUATATION_TABLE = {
     # 'ثنا':{'abbr':'ثَنَا',}
 }
 
+
 class Disambiguator:
     """
     A class to remove ambiguation in text analysis
@@ -163,9 +164,7 @@ class Disambiguator:
         @rtype: True/False.
         """
         return (
-            DISAMBIGUATATION_TABLE.get(word, {})
-            .get("noun", {})
-            .get("vocalized", word)
+            DISAMBIGUATATION_TABLE.get(word, {}).get("noun", {}).get("vocalized", word)
         )
 
     @staticmethod
@@ -180,9 +179,7 @@ class Disambiguator:
         @rtype: True/False.
         """
         return (
-            DISAMBIGUATATION_TABLE.get(word, {})
-            .get("previous", {})
-            .get(previous, word)
+            DISAMBIGUATATION_TABLE.get(word, {}).get("previous", {}).get(previous, word)
         )
 
     @staticmethod
@@ -196,11 +193,7 @@ class Disambiguator:
         @return : if word is ambiguous
         @rtype: True/False.
         """
-        return (
-            DISAMBIGUATATION_TABLE.get(word, {})
-            .get("next", {})
-            .get(w_next, word)
-        )
+        return DISAMBIGUATATION_TABLE.get(word, {}).get("next", {}).get(w_next, word)
 
     @staticmethod
     def get_disambiguated_by_next_verb(word):
@@ -212,9 +205,7 @@ class Disambiguator:
         @rtype: True/False.
         """
         return (
-            DISAMBIGUATATION_TABLE.get(word, {})
-            .get("verb", {})
-            .get("vocalized", word)
+            DISAMBIGUATATION_TABLE.get(word, {}).get("verb", {}).get("vocalized", word)
         )
 
     @staticmethod
