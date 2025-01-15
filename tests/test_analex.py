@@ -52,8 +52,6 @@ def grabargs():
 sys.path.append("../")
 import qalsadi.analex as qanalex
 import qalsadi.cache_codernity
-import qalsadi.cache_pickle
-import qalsadi.cache_pickledb
 
 PANDAS = False
 # test performance without pandas
@@ -123,19 +121,12 @@ class tester:
         # ~ cacher = qalsadi.cache_codernity.Cache(db_path)
         # ~ analyzer.set_cacher(cacher)
 
-        cacher = qalsadi.cache_pickle.Cache("IMPORTANT")
-        analyzer.set_cacher(cacher)
-
-        analyzer.enable_allow_cache_use()
-        # ~ analyzer.disable_allow_cache_use()
-
         print(len(text))
         if type(text) == str:
             result = analyzer.check_text(text)
         elif type(text) == list:
             if not limit:
                 limit = len(text)
-            
 
             lines = text
             result = []

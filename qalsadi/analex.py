@@ -13,7 +13,6 @@ from . import disambig  # disambiguation const
 from . import wordcase
 from . import stemmedword  # the result object for stemming
 from . import cache
-from . import cache_pickledb as cache
 
 PARTIAL_VOCALIZED_TAG = "مدخل مشكول"
 # fields names and abbriviations

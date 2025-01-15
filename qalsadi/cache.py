@@ -61,12 +61,3 @@ class Cache(object):
     def add_freq(self, original, wordtype, freq):
         """add   ``original`` frequency ``freq`` to cache"""
         self.cache["FreqWords"][wordtype][original] = freq
-
-
-def mainly():
-    """main function"""
-    print("test")
-
-
-if __name__ == "__main__":
-    mainly()
