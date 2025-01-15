@@ -14,21 +14,12 @@
 Arabic Dictionary Class from Arramooz Al Waseet.
 Used in multiporpus morpholigical treatment
 """
-from __future__ import (
-    absolute_import,
-    print_function,
-    unicode_literals,
-    division,
-)
-import re
 import os, os.path
 
-# from pysqlite2 import dbapi2 as sqlite
 import sqlite3 as sqlite
 import sys
 
 FILE_DB = "data/custom_dictionary.sqlite"
-import pyarabic.araby as araby
 import arramooz.arabicdictionary
 
 

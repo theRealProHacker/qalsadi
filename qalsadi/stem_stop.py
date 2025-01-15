@@ -23,7 +23,6 @@ import arramooz.stopwordsdictionaryclass as stopwordsdictionaryclass
 from . import wordcase
 
 from alyahmor import stopword_affixer as stop_affixer
-# ~ from . import stop_affixer
 
 
 class StopWordStemmer:

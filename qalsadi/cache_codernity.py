@@ -12,8 +12,6 @@
 # Licence:     GPL
 # -------------------------------------------------------------------------------
 """Cache Module for analex"""
-import sys
-
 
 from hashlib import md5
 import os

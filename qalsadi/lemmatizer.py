@@ -14,15 +14,13 @@
 Syntaxic Analysis
 """
 
-# ~ from operator import xor
-# ~ import functools
-# ~ import operator
+import functools
+import operator
 import pprint
 
-import pyarabic.araby as araby
 from . import analex
 from . import stemnode
-from . import stemmedword
+
 
 
 class Lemmatizer:

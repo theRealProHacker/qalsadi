@@ -23,13 +23,7 @@
 #
 
 from builtins import str
-
-# ~ from future.utils import python_2_unicode_compatible
 import sys
-
-
-from pyarabic.arabrepr import arepr
-
 
 def print_md_table(myDict, colList=None):
     """Pretty print a list of dictionaries (myDict) as a dynamically sized table.
