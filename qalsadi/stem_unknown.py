@@ -254,7 +254,6 @@ class UnknownStemmer:
 
         return detailed_result
 
-
     def lookup_dict(self, word):
         """
         lookup for word in dict

@@ -47,7 +47,7 @@ class NounStemmer:
 
         # noun dictionary
         self.noun_dictionary = arabicdictionary.ArabicDictionary("nouns")
-        
+
         # allow to print internal results.
         self.cache_dict_search = {}
         self.cache_affixes_verification = {}

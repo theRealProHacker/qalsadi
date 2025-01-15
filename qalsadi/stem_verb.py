@@ -160,7 +160,7 @@ class VerbStemmer:
                         "trans_comp": transitive_comp,
                     }
                     word_segmented_list.append(word_seg)
-        
+
         # second level for segmented word
         tmp_list = []
         # ~ print 'first level', verb_in, len(word_segmented_list)
@@ -241,7 +241,7 @@ class VerbStemmer:
                 word_seg_l3["transitive"] = bool(item["transitive"] in ("y", 1))
                 tmp_list.append(word_seg_l3)
                 # conjugation step
-        
+
         # ~ print repr(tmp_list).replace('},','},\n').decode("unicode-escape")
         # ~ print 'conj', verb_in, len(tmp_list)
         # get conjugation for every infinitive verb
@@ -379,7 +379,6 @@ class VerbStemmer:
                 liste.append(item)
         self.verb_dict_cache[verb_key] = liste
         return liste
-
 
     def enable_syntax_lastmark(self):
         """
