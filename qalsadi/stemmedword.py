@@ -1,18 +1,3 @@
-#!/usr/bin/python
-# -*- coding=utf-8 -*-
-# -------------------------------------------------------------------------------
-# Name:        stemmed_word
-# Purpose:     representat data analyzed given by morphoanalyzer Qalsadi
-#
-# Author:      Taha Zerrouki (taha.zerrouki[at]gmail.com)
-#
-# Created:     19-09-2012
-# Copyright:   (c) Taha Zerrouki 2012
-# Licence:     GPL
-# -------------------------------------------------------------------------------
-"""
-stemmed_word represents the data resulted from the morpholocigal analysis
-"""
 import pyarabic.araby as araby
 from . import stemmedaffix
 
@@ -20,10 +5,6 @@ GLOBAL_AFFIXES = {}
 
 
 class StemmedWord:
-    """
-    stemmed_word represents the data resulted from the morpholocigal analysis
-    """
-
     def __init__(self, resultdict=None):
         # given word attributes
         self.word = ("",)
@@ -216,24 +197,7 @@ class StemmedWord:
         # ~ if given_person_tag: print "--",given_person_tag.encode('utf8')
         return self.tag_person
 
-    def __get_regular(
-        self,
-    ):
-        """
-        Return the int code of the regular state.
-        the regular cases are coded in binary like
-        regular   : 1
-        irregular  : 0
-        @return: get the regular state .
-        @rtype: int
-        """
-        # غير محدد
-        self.tag_regular = True
-        if "جمع تكسير" in self.tag_original_number:
-            self.tag_regular = False
-
-        return self.tag_regular
-
+    
     def __get_type(self, input_type):
         """
         Return the numeric code of word type.
@@ -496,54 +460,6 @@ class StemmedWord:
                 result = True
         return result
 
-    ######################################################################
-    # { Attribut Functions
-    ######################################################################
-    def get_word(
-        self,
-    ):
-        """Get the input word given by user"""
-        return self.word
-
-    def set_word(self, newword):
-        """Set the input word given by user"""
-        self.word = newword
-
-    def get_vocalized(
-        self,
-    ):
-        """Get the vocalized form of the input word"""
-        return self.vocalized
-
-    def set_vocalized(self, newvocalized):
-        """Set the vocalized word"""
-        self.vocalized = newvocalized
-        self.unvocalized = araby.strip_tashkeel(newvocalized)
-
-    def get_semivocalized(
-        self,
-    ):
-        """
-        Get the semi vocalized form of the input word
-        """
-        return self.semivocalized
-
-    def get_stem(
-        self,
-    ):
-        """
-        Get the stem form of the input word
-        """
-        return self.stem
-
-    def get_tags(
-        self,
-    ):
-        """
-        Get the tags form of the input word
-        """
-        return self.tags
-
     def get_tags_to_display(
         self,
     ):
@@ -555,133 +471,6 @@ class StemmedWord:
             self.tag_gender,
             self.tag_number,
         )
-
-    def set_tags(self, newtags):
-        """
-        Set the tags word
-        """
-        self.tags = newtags
-
-    def get_affix_tags(
-        self,
-    ):
-        """
-        Get the affix tags form of the input word
-        """
-        if self.affix_key in GLOBAL_AFFIXES:
-            return GLOBAL_AFFIXES[self.affix_key].get_tags()
-        return ""
-
-    def get_affix(
-        self,
-    ):
-        """
-        Get the affix  form of the input word
-        """
-        return self.affix
-
-    def get_action(
-        self,
-    ):
-        """
-        Get the action form of the input word
-        """
-        return self.action
-
-    def get_object_type(
-        self,
-    ):
-        """
-        Get the object_type form of the input word
-        """
-        return self.object_type
-
-    def get_need(
-        self,
-    ):
-        """
-        Get the need form of the input word
-        """
-        return self.need
-
-    def get_freq(
-        self,
-    ):
-        """
-        Get the freq form of the input word
-        """
-        return self.freq
-
-    def set_freq(self, newfreq):
-        """
-        Set the freq word
-        """
-        self.freq = newfreq
-
-    def get_type(
-        self,
-    ):
-        """
-        Get the type form of the input word
-        """
-        return self.type
-
-    def set_type(self, newtype):
-        """
-        Set the type word
-        """
-        self.type = newtype
-
-    def get_original(
-        self,
-    ):
-        """
-        Get the original form of the input word
-        """
-        return self.original
-
-    def get_root(
-        self,
-    ):
-        """
-        Get the root form of the input word
-        """
-        return self.root
-
-    def get_tense(
-        self,
-    ):
-        """
-        Get the tense of the input verb
-        """
-        return self.tag_tense
-
-    def get_pronoun(
-        self,
-    ):
-        """
-        Get the tense of the input verb
-        """
-        return self.tag_pronoun
-
-    def get_attached_pronoun(
-        self,
-    ):
-        """
-        Get the tense of the input verb
-        """
-        return self.tag_pronoun
-
-    def set_original(self, neworiginal):
-        """Set the original word"""
-        self.original = neworiginal
-
-    ######################################################################
-    # { _tags  Functions
-    ######################################################################
-    def is_initial(self):
-        """Return True if the word mark the begin of next sentence."""
-        return self.tag_initial
 
     #  حالة المضاف إليه
     # --------------------------
@@ -952,19 +741,6 @@ class StemmedWord:
         """Return True if the word has the state added مضاف."""
         return self.tag_added
 
-    ######################################################################
-    # { Display Functions
-    ######################################################################
-    def get_dict(
-        self,
-    ):
-        """getdictionary function"""
-        return self.__dict__
-
-    def __repr__(self):
-        """Display objects result from analysis"""
-        return self.__str__()
-
     def __str__(self):
         """Display objects result from analysis"""
         text = "{"
@@ -974,48 +750,3 @@ class StemmedWord:
             text += "\n\t\t'%s' = '%s', " % (key, stmword[key])
         text += "\n\t\t}"
         return text  # .encode('utf8')
-
-    # ~ def __dict__(self):
-    # ~ """get dict objects result from analysis"""
-    # ~ return self.__dict__
-    # ~ text = u"{"
-    # ~ stmword = self.__dict__
-    # ~ stmword['affix'] = 'Taha'
-    # ~ for key in stmword.keys():
-    # ~ text += u"\n\t\t'%s' = '%s', " % (key, stmword[key])
-    # ~ text += '\n\t\t}'
-    # ~ return text.encode('utf8')
-
-
-if __name__ == "__main__":
-    print("test")
-
-    RDICT = {
-        "word": "الحياة",  # input word
-        "vocalized": "الْحَيَاةُ",  # vocalized form of the input word
-        "procletic": "ال",  # the syntaxic pprefix called procletic
-        "prefix": "",  # the conjugation or inflection prefix
-        "stem": "حياة",  # the word stem
-        "suffix": "ُ",  # the conjugation suffix of the word
-        "encletic": "",  # the syntaxic suffix
-        "tags": "تعريف::مرفوع*",
-        # tags of affixes and tags extracted form lexical dictionary
-        "freq": 0,  # the word frequency from _word _frequency database
-        "root": "",  # the word root not yet used
-        "template": "",  # the template وزن
-        "type": "Noun:مصدر",  # the word type
-        "original": "حَيَاةٌ",  # original word from lexical dictionary
-        "syntax": "",  # used for syntaxique analysis porpos
-        "semantic": "",
-    }
-    stmwrd = StemmedWord(RDICT)
-    print(stmwrd.get_dict())
-
-    stmwrd.set_word("4444")
-    stmwrd.set_vocalized("4444")
-    stmwrd.set_tags("4444")
-    stmwrd.set_freq("4444")
-    stmwrd.set_type("4444")
-    stmwrd.set_original("4444")
-
-    print(stmwrd)

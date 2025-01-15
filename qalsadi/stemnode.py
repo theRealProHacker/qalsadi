@@ -1,19 +1,3 @@
-#!/usr/bin/python
-# -*- coding=utf-8 -*-
-# ------------------------------------------------------------------------
-# Name:        stemNode
-# Purpose:     representat data analyzed given by morphoanalyzer Qalsadi
-#
-# Author:      Taha Zerrouki (taha.zerrouki[at]gmail.com)
-#
-# Created:     26-08-2020
-# Copyright:   (c) Taha Zerrouki 2012
-# Licence:     GPL
-# ------------------------------------------------------------------------
-"""
-stemNode represents the regrouped data resulted from the 
-morpholocigal analysis
-"""
 from collections import Counter
 
 
@@ -26,25 +10,12 @@ def ispunct(word):
     return word in "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~،؟"
 
 
-# @deprecated_func
-def most_frequent2(List):
-    return max(set(List), key=List.count)
-
-
-def most_frequent(List):
-    occurence_count = Counter(sorted(List))
+def most_frequent(l: list):
+    occurence_count = Counter(sorted(l))
     return occurence_count.most_common(1)[0][0]
 
 
-# ~ from . import syn_const
-
-
 class StemNode:
-    """
-    stemNode represents the regrouped data resulted from the
-    morpholocigal analysis
-    """
-
     def __init__(self, case_list, vocalized_lemma=False):
         """
         Create the stemNode  from a list of StemmedSynword cases
@@ -104,26 +75,26 @@ class StemNode:
         # guessed word type tag given by the word tagger
         self.break_end = False
         # the break position at the end or at the begining
-        # the pounctuation is an end break
+        # the punctuation is an end break
         # a stop word is a start break
 
         self.lemmas = {
             "verb": [],
             "noun": [],
-            "pounct": [],
+            "punct": [],
             "stopword": [],
             "all": [],
         }
         self.word_type = {
             "verb": [],
             "noun": [],
-            "pounct": [],
+            "punct": [],
             "stopword": [],
         }
         self.count = {
             "verb": [],
             "noun": [],
-            "pounct": [],
+            "punct": [],
             "stopword": [],
         }
         # word type count after analysis
@@ -175,9 +146,9 @@ class StemNode:
             if case.is_stopword():
                 self.word_type["stopword"].append(idx)
                 self.lemmas["stopword"].append(case.get_original())
-            if case.is_pounct():
-                self.word_type["pounct"].append(idx)
-                self.lemmas["pounct"].append(case.get_original())
+            if case.is_punct():
+                self.word_type["punct"].append(idx)
+                self.lemmas["punct"].append(case.get_original())
             # indexing break and non break word cases
             if case.is_break():
                 self.breaks.append(idx)
@@ -219,7 +190,7 @@ class StemNode:
             # ~""" the number of syntaxtical noun cases """
             "stopword": len(self.word_type["stopword"]),
             # ~""" the number of syntaxtical stopword cases """
-            "pounct": len(self.word_type["pounct"]),
+            "punct": len(self.word_type["punct"]),
         }
         # cleans lemmas
         self.lemmas["all"] = self.originals.keys()
@@ -239,148 +210,6 @@ class StemNode:
 
         # the sematic nexts of cases
 
-    ######################################################################
-    # { Attributes Functions
-    ######################################################################
-
-    def set_case_count(self, count):
-        """
-        Set the case count.
-        @param count: the number of stemmed word  cases
-        @tyep count: integer
-        """
-        self.case_count = count
-
-    def get_case_count(self):
-        """
-        get the case count.
-        @return: the number of stemmed word  cases
-        @tyep count: integer
-        """
-        return self.case_count
-
-    def set_guessed_type_tag(self, tag):
-        """
-        Set the guessed type tag.
-        @param tag: guessed type tag
-        @type tag: unicode
-        """
-        self.guessed_type_tag = tag
-
-    def get_guessed_type_tag(self):
-        """
-        get the guessed type tag.
-        @return: guessed type tag
-        @rtype: unicode
-        """
-        return self.guessed_type_tag
-
-    def get_case_count(self):
-        """
-        get the guessed type tag.
-        @return: guessed type tag
-        @rtype tag: unicode
-        """
-        return self.guessed_type_tag
-
-    def set_verb_count(self, count):
-        """
-        Set the verb count.
-        @param count: the number of stemmed word cases as  verbs
-        @tyep count: integer
-        """
-        self.count["verb"] = count
-
-    def get_verb_count(self):
-        """
-        get the verb count.
-        @return: the number of stemmed word cases as verbs
-        @tyep count: integer
-        """
-        return self.count["verb"]
-
-    def set_noun_count(self, count):
-        """
-        Set the noun count.
-        @param count: the number of stemmed word cases as  nouns
-        @tyep count: integer
-        """
-        self.count["noun"] = count
-
-    def get_noun_count(self):
-        """
-        get the noun count.
-        @return: the number of stemmed word cases as nouns
-        @tyep count: integer
-        """
-        return self.count["noun"]
-
-    def set_stopword_count(self, count):
-        """
-        Set the stopword count.
-        @param count: the number of stemmed word cases as  stopwords
-        @tyep count: integer
-        """
-        self.count["stopword"] = count
-
-    def get_stopword_count(self):
-        """
-        get the stopword count.
-        @return: the number of stemmed word cases as stopwords
-        @tyep count: integer
-        """
-        return self.count["stopword"]
-
-    def get_word(
-        self,
-    ):
-        """
-        Get the input word given by user
-        @return: the given word.
-        @rtype: unicode string
-        """
-        return self.word
-
-    def set_word(self, newword):
-        """
-        Set the input word given by user
-        @param newword: the new given word.
-        @type newword: unicode string
-        """
-        self.word = newword
-
-    def get_roots(
-        self,
-    ):
-        """
-        Get the root forms of the input word
-        @return: the given root.
-        @rtype: unicode string
-        """
-        return list(self.roots)
-
-    def get_root(
-        self,
-    ):
-        """
-        Get the root forms of the input word
-        @return: the given root.
-        @rtype: unicode string
-        """
-        if self.roots:
-            return self.roots[0]
-        return ""
-
-    def get_original(
-        self,
-    ):
-        """
-        Get the original forms of the input word
-        @return: the given original.
-        @rtype: unicode string
-        """
-        return list(self.originals.keys())
-
     def get_lemmas(
         self,
     ):
@@ -389,7 +218,6 @@ class StemNode:
         @return: the given lemmas list.
         @rtype: unicode string
         """
-        # print("stemnode 307", self.vocalized_lemma)
         originals = set(list(self.originals.keys()))
         if self.vocalized_lemma:
             lemmas = [l for l in originals]
@@ -411,9 +239,9 @@ class StemNode:
 
         lemma = ""
         lemma_type = ""
-        if self.lemmas.get("pounct", []):
-            lemma = most_frequent(self.lemmas["pounct"])
-            lemma_type = "pounct"
+        if self.lemmas.get("punct", []):
+            lemma = most_frequent(self.lemmas["punct"])
+            lemma_type = "punct"
         else:
             # strategy to select lemmas
             word_type_strategy = ["stopword", "noun", "verb", "all"]
@@ -428,7 +256,7 @@ class StemNode:
                     "p",
                     "punct",
                 ):
-                    pos = "pounct"
+                    pos = "punct"
                 elif pos in ("v",):
                     pos = "verb"
                 else:
@@ -448,73 +276,6 @@ class StemNode:
         else:
             return (lemma, lemma_type)
 
-    def get_affixes(
-        self,
-    ):
-        """
-        Get the affixes of the input word
-        @return: the given affixes.
-        @rtype: unicode string
-        """
-        return list(self.affixes)
-
-    def get_affix(
-        self,
-    ):
-        """
-        Get the affixes of the input word
-        @return: the given affixes.
-        @rtype: unicode string
-        """
-        if self.affixes:
-            return self.affixes[0]
-
-    def get_vocalizeds(
-        self,
-    ):
-        """
-        Get the vocalized forms of the input word
-        @return: the given vocalizeds.
-        @rtype: list of unicode string
-        """
-        return self.vocalizeds
-
-    def get_tags(
-        self,
-    ):
-        """
-        Get the tags of the input word
-        @return: the tags list.
-        @rtype: list of unicode string
-        """
-        return self.tags
-
-    def get_chosen_indexes(
-        self,
-    ):
-        """
-        Get the chosen_indexes forms of the input word
-        @return: the given chosen_indexes.
-        @rtype: unicode string
-        """
-        return self.chosen_indexes
-
-    def set_chosen_indexes(self, indexes):
-        """
-        Get the chosen_indexes forms of the input word
-        @return: the given chosen_indexes.
-        @rtype: unicode string
-        """
-        # verify that all indexes are in range
-        for i in indexes:
-            if i >= self.case_count or i < 0:
-                break
-        else:
-            self.chosen_indexes = indexes
-
-    ######################################################################
-    # { Tags extraction Functions
-    ######################################################################
     def has_verb(
         self,
     ):
@@ -549,23 +310,23 @@ class StemNode:
         self,
     ):
         """
-        Return if all cases are pounctuations
-        @return:True if the node has pounctation in one case at least.
+        Return if all cases are punctuations
+        @return:True if the node has punctation in one case at least.
         @rtype:boolean
         """
-        return self.count["pounct"] > 0
+        return self.count["punct"] > 0
 
     def is_verb(
         self,
     ):
         """
         Return if all cases are verbs.
-        @return:True if the node is verb in alll cases.
-        @rtype:boolean
+        @return: True if the node is verb in all cases.
+        @rtype: boolean
         """
         return (
             self.count["verb"]
-            and not self.count["pounct"]
+            and not self.count["punct"]
             and not self.count["stopword"]
             and not self.count["noun"]
         )
@@ -575,11 +336,11 @@ class StemNode:
     ):
         """
         Return if all cases are nouns.
-        @return:True if the node is noun in alll cases.
-        @rtype:boolean
+        @return: True if the node is noun in all cases.
+        @rtype: boolean
         """
         return (
-            not self.count["pounct"]
+            not self.count["punct"]
             and not self.count["stopword"]
             and not self.count["verb"]
             and self.count["noun"]
@@ -590,26 +351,26 @@ class StemNode:
     ):
         """
         Return if all cases are stopwords.
-        @return:True if the node is stopword in alll cases.
-        @rtype:boolean
+        @return: True if the node is stopword in all cases.
+        @rtype: boolean
         """
         return (
-            not self.count["pounct"]
+            not self.count["punct"]
             and self.count["stopword"]
             and not self.count["verb"]
             and not self.count["noun"]
         )
 
-    def is_pounct(
+    def is_punct(
         self,
     ):
         """
-        Return if all cases are pounctuations
-        @return:True if the node is pounctation in alll cases.
+        Return if all cases are punctuations
+        @return:True if the node is punctation in all cases.
         @rtype:boolean
         """
         return (
-            self.count["pounct"]
+            self.count["punct"]
             and not self.count["stopword"]
             and not self.count["verb"]
             and not self.count["noun"]
@@ -669,8 +430,8 @@ class StemNode:
             return "verb"
         elif self.is_stopword():
             return "stopword"
-        elif self.is_pounct():
-            return "pounct"
+        elif self.is_punct():
+            return "punct"
         elif self.is_most_noun():
             return "mostnoun"
         elif self.is_most_verb():
@@ -741,7 +502,3 @@ class StemNode:
         text += repr(self.originals)
         text += "Indexes : " + repr(self.chosen_indexes)
         return text
-
-
-if __name__ == "__main__":
-    print("Stem Node module")
