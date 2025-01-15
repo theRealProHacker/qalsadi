@@ -30,7 +30,7 @@ class StopWordStemmer:
     Arabic stop stemmer
     """
 
-    def __init__(self, debug=False):
+    def __init__(self):
         # create a stemmer object for stemming enclitics and procletics
         self.comp_stemmer = tashaphyne.stemming.ArabicLightStemmer()
         # configure the stemmer object
@@ -57,7 +57,6 @@ class StopWordStemmer:
         # allow to print internal results.
         self.cache_dict_search = {}
         self.cache_affixes_verification = {}
-        self.debug = debug
 
     def stemming_stopword(self, stop):
         """
@@ -301,14 +300,6 @@ class StopWordStemmer:
             self.cache_affixes_verification[affix] = True
 
         return self.cache_affixes_verification[affix]
-
-    def set_debug(self, debug):
-        """
-        Set the debug attribute to allow printing internal analysis results.
-        @param debug: the debug value.
-        @type debug: True/False.
-        """
-        self.debug = debug
 
     def enable_syntax_lastmark(self):
         """

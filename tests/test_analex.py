@@ -68,7 +68,7 @@ class tester:
         pass
 
     @staticmethod
-    def test_quran(text, debug, outfile):
+    def test_quran(text, outfile):
         analyzer = qanalex.Analex(cache_path="cache/")
         # ~ analyzer.disable_allow_cache_use()
         # install a cache system for analyzer
@@ -78,7 +78,6 @@ class tester:
         analyzer.enable_allow_cache_use()
 
         analyzer.enable_fully_vocalized_input()
-        analyzer.set_debug(debug)
         result = analyzer.check_text(text)
         adapted_result = []
 
@@ -120,7 +119,7 @@ class tester:
             print("known ", display_known.count())
 
     @staticmethod
-    def test_one(text, debug, outfile, limit=False):
+    def test_one(text, outfile, limit=False):
         analyzer = qanalex.Analex(allow_tag_guessing=True)
         # configure cache
         # ~ db_path = os.path.join(os.path.abspath("./"),"cache", '.qalsadiCache')
@@ -134,7 +133,6 @@ class tester:
         analyzer.enable_allow_cache_use()
         # ~ analyzer.disable_allow_cache_use()
 
-        analyzer.set_debug(debug)
         print(len(text))
         if type(text) == str:
             result = analyzer.check_text(text)
@@ -168,7 +166,6 @@ class tester:
             sys.exit()
         # test tagmaker
         mytagmaker = mysam.tagmaker.tagMaker()
-        mytagmaker.debug = True
         mytagmaker.lang = "en"
         for adp in adapted_result:
             mytagmaker._encode(adp.get("tags").split(":"))
@@ -200,46 +197,12 @@ class tester:
             display = display.drop_duplicates()
             display.to_csv(outfile, sep=str("\t"), encoding="utf8")
 
-    def run(self, command, text, limit, debug, outfile):
+    def run(self, command, text, limit, outfile):
         """run command to test"""
         if command == "test_quran":
-            df = self.test_quran(text, debug, outfile)
+            df = self.test_quran(text, outfile)
         elif command == "test_one":
-            df = self.test_one(text, debug, outfile, limit)
+            df = self.test_one(text, outfile, limit)
         else:
-            df = self.test_one(text, debug, outfile, limit)
+            df = self.test_one(text, outfile, limit)
             # print("choose a command")
-
-
-def main(args):
-    args = grabargs()
-    filename = args.filename
-    outfile = args.outfile
-    command = args.command
-    limit = args.limit
-    try:
-        myfile = open(filename, encoding="utf-8")
-        text = myfile.readlines()  # .decode('utf8');
-        # ~ print(len(araby.tokenize(text)))
-        # ~ sys.exit()
-        if text == None:
-            text = "السلام عليكم يستعملونهم"
-    except:
-        text = "أسلم"
-        print(" given text")
-
-    # ~ debug=True;
-    debug = False
-    # ~ limit=500
-    if not limit:
-        limit = 100000000
-    mytester = tester()
-
-    # ~ command = "test_quran"
-    mytester.run(command, text, limit, debug, outfile)
-
-
-if __name__ == "__main__":
-    import sys
-
-    sys.exit(main(sys.argv))

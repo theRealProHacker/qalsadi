@@ -21,7 +21,6 @@ import alyahmor.aly_stem_verb_const as SVC
 import alyahmor.verb_affixer
 import libqutrub.classverb
 import arramooz.arabicdictionary as arabicdictionary
-from .print_debug import print_table
 from . import custom_dictionary
 from . import wordcase
 
@@ -31,7 +30,7 @@ class VerbStemmer:
     Arabic verb stemmer
     """
 
-    def __init__(self, debug=False):
+    def __init__(self):
         # create a stemmer object for stemming enclitics and proclitics
         self.comp_stemmer = tashaphyne.stemming.ArabicLightStemmer()
 
@@ -59,7 +58,6 @@ class VerbStemmer:
         self.compatibility_cache = {}
         self.verb_dict_cache = {}
 
-        self.debug = debug
         # ~ self.cache_verb = {'verb': {}}
 
         self.verb_dictionary = arabicdictionary.ArabicDictionary("verbs")
@@ -135,7 +133,6 @@ class VerbStemmer:
             verb_in,
         ] + self.get_verb_variants(verb_in)
         verb_list = list(set(verb_list))
-        debug = self.debug
         # list of segmented words
         word_segmented_list = []
         for verb in verb_list:
@@ -163,13 +160,7 @@ class VerbStemmer:
                         "trans_comp": transitive_comp,
                     }
                     word_segmented_list.append(word_seg)
-        if debug:
-            print("after first level")
-        if debug:
-            # ~ print(repr(word_segmented_list).replace(
-            # ~ '},', '},\n').decode("unicode-escape"))
-            print(arepr(verb_in))
-            print(print_table(word_segmented_list))
+        
         # second level for segmented word
         tmp_list = []
         # ~ print 'first level', verb_in, len(word_segmented_list)
@@ -215,11 +206,6 @@ class VerbStemmer:
             if self.exists_as_stamp(word_seg["stem_conj"]):
                 tmp_list.append(word_seg.copy())
 
-        if debug:
-            print("after second level")
-        if debug:
-            print(arepr(verb_in))
-            print(print_table(tmp_list))
         # ~ print 'infinitive', verb_in, len(tmp_list)
         # get infinitive of condidate verbs
         word_segmented_list = tmp_list
@@ -238,11 +224,6 @@ class VerbStemmer:
             infverb_dict = self.__get_infinitive_verb_by_stem(
                 word_seg["stem_conj"], word_seg["trans_comp"]
             )
-            if debug:
-                print("infinitive candidat verbs")
-            if debug:
-                print(arepr(verb_in))
-                print(print_table(infverb_dict))
             # ~ print "list possible verbs", len(infverb_dict)
             # ~ for item in infverb_dict:
             # ~ print item['verb']
@@ -251,11 +232,6 @@ class VerbStemmer:
                 word_seg["stem_conj"], infverb_dict
             )
 
-            if debug:
-                print("valid infinitive candidat verbs")
-            if debug:
-                print(arepr(verb_in))
-                print(print_table(infverb_dict))
             for item in infverb_dict:
                 # The haraka from is given from the dict
                 word_seg_l3 = word_seg.copy()
@@ -265,11 +241,7 @@ class VerbStemmer:
                 word_seg_l3["transitive"] = bool(item["transitive"] in ("y", 1))
                 tmp_list.append(word_seg_l3)
                 # conjugation step
-        if debug:
-            print("after lookup dict")
-        if debug:
-            print(arepr(verb_in))
-            print(print_table(tmp_list))
+        
         # ~ print repr(tmp_list).replace('},','},\n').decode("unicode-escape")
         # ~ print 'conj', verb_in, len(tmp_list)
         # get conjugation for every infinitive verb
@@ -297,12 +269,6 @@ class VerbStemmer:
                 word_seg_l4 = word_seg.copy()
                 word_seg_l4["conj"] = conj.copy()
                 tmp_list.append(word_seg_l4)
-        if debug:
-            print("after generating conjugation")
-        if debug:
-            print(arepr(verb_in))
-            conjs = [item["conj"] for item in tmp_list]
-            print(print_table(conjs))
         # ~ print 'result', verb_in, len(tmp_list)
         # generate all resulted data
         word_segmented_list = tmp_list
@@ -414,13 +380,6 @@ class VerbStemmer:
         self.verb_dict_cache[verb_key] = liste
         return liste
 
-    def set_debug(self, debug):
-        """
-        Set the debug attribute to allow printing internal analysis results.
-        @param debug: the debug value.
-        @type debug: True/False.
-        """
-        self.debug = debug
 
     def enable_syntax_lastmark(self):
         """
@@ -773,37 +732,3 @@ class VerbStemmer:
         if not word in self.stripped_words_cache:
             self.stripped_words_cache[word] = ar.strip_tashkeel(word)
         return self.stripped_words_cache[word]
-
-
-def mainly():
-    """
-    Test main"""
-    # ToDo: use the full dictionary of arramooz
-    wordlist = [
-        # ~ 'يضرب',
-        "يضربه",
-        "يضربك",
-        # ~ u"استقلّ",
-        "استقل",
-        "ويستخدمونها",
-        "اتركني",
-    ]
-    verbstemmer = VerbStemmer()
-    verbstemmer.set_debug(True)
-    for word in wordlist:
-        verbstemmer.conj_stemmer.segment(word)
-        print(verbstemmer.conj_stemmer.get_affix_list())
-    for word in wordlist:
-        result = verbstemmer.stemming_verb(word)
-        for analyzed in result:
-            # ~ print(repr(analyzed).encode('utf8'))
-            # ~ print('\n'.join(analyzed.__dict__.keys()))
-            for key in analyzed.__dict__.keys():
-                print("\t".join([key, unicode(analyzed.__dict__[key])]).encode("utf8"))
-            print()
-            print()
-
-
-# Class test
-if __name__ == "__main__":
-    mainly()

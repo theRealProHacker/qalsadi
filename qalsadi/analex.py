@@ -70,7 +70,6 @@ class Analex:
             self.tagger = naftawayh.wordtag.WordTagger()
         if self.allow_disambiguation:
             self.disambiguator = disambig.Disambiguator()
-        self.debug = False  # to allow to print internal data
         self.limit = 10000  # limit words in the text
         self.wordcounter = 0
 

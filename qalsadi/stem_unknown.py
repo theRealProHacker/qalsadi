@@ -66,7 +66,7 @@ class UnknownStemmer:
     Unkown words are stemmed as nouns with another dictionary
     """
 
-    def __init__(self, debug=False):
+    def __init__(self):
         # create a stemmer object for stemming enclitics and procletics
         self.comp_stemmer = tashaphyne.stemming.ArabicLightStemmer()
         # configure the stemmer object
@@ -100,8 +100,6 @@ class UnknownStemmer:
         self.noun_cache = {}
         self.noun_vocalize_cache = {}
 
-        self.debug = debug
-
     def stemming_noun(self, noun):
         """
         Analyze word morphologically as noun
@@ -133,8 +131,6 @@ class UnknownStemmer:
                 encletic = noun[seg[1] :]
                 # ~secondsuffix = u''
                 # ~proaffix = u'-'.join([procletic, encletic])
-                if self.debug:
-                    print("\t", "-".join([procletic, stem, encletic]).encode("utf8"))
 
                 # ajusting nouns variant
                 list_stem = [stem]
@@ -258,13 +254,6 @@ class UnknownStemmer:
 
         return detailed_result
 
-    def set_debug(self, debug):
-        """
-        Set the debug attribute to allow printing internal analysis results.
-        @param debug: the debug value.
-        @type debug: True/False.
-        """
-        self.debug = debug
 
     def lookup_dict(self, word):
         """

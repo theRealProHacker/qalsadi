@@ -16,13 +16,10 @@
 """
 import re
 import pyarabic.araby as ar
-from pyarabic.arabrepr import arepr
 import tashaphyne.stemming
 import alyahmor.aly_stem_noun_const as SNC
 import alyahmor.noun_affixer
 import arramooz.arabicdictionary as arabicdictionary
-from .print_debug import print_table
-from . import custom_dictionary
 from . import wordcase
 
 
@@ -31,7 +28,7 @@ class NounStemmer:
     Arabic noun stemmer
     """
 
-    def __init__(self, debug=False):
+    def __init__(self):
         # create a stemmer object for stemming enclitics and proclitics
         self.comp_stemmer = tashaphyne.stemming.ArabicLightStemmer()
         # configure the stemmer object
@@ -50,15 +47,12 @@ class NounStemmer:
 
         # noun dictionary
         self.noun_dictionary = arabicdictionary.ArabicDictionary("nouns")
-        # costum noun dictionary
-        self.custom_noun_dictionary = custom_dictionary.custom_dictionary("nouns")
-
+        
         # allow to print internal results.
         self.cache_dict_search = {}
         self.cache_affixes_verification = {}
         self.noun_cache = {}
         self.noun_vocalize_cache = {}
-        self.debug = debug
         self.error_code = ""
 
     def get_error_code(
@@ -100,7 +94,6 @@ class NounStemmer:
         if not noun_in:
             self.set_error_code("Empty word")
             return None
-        debug = self.debug
         # ~list_found = []
         detailed_result = []
         noun_list = [
@@ -140,14 +133,6 @@ class NounStemmer:
         # level two
 
         tmp_list = []
-        if debug:
-            print("after first level")
-        if debug:
-            # ~ print(repr(word_segmented_list).replace(
-            # ~ '},', '},\n').decode("unicode-escape"))
-            print(arepr(noun_in))
-            print(print_table(word_segmented_list))
-
         for word_seg in word_segmented_list:
             # ~ detailed_result.extend(
             # ~ self.steming_second_level(word_seg['noun'], word_seg['stem_comp'],
@@ -185,11 +170,6 @@ class NounStemmer:
                     )
                     tmp_list.append(word_seg_l2)
 
-        if debug:
-            print("after second level")
-        if debug:
-            print(arepr(noun_in))
-            print(print_table(tmp_list))
         # lookup in dictionary
         if not tmp_list:
             self.set_error_code(" Second level segmentation error")
@@ -214,12 +194,6 @@ class NounStemmer:
                 word_seg_l3["noun_tuple"] = dict(noun_tuple)
                 tmp_list.append(word_seg_l3)
 
-        if debug:
-            print("after lookup dict")
-        if debug:
-            print(arepr(noun_in))
-            noun_tuples = [item["noun_tuple"] for item in tmp_list]
-            print(print_table(noun_tuples))
         # test compatiblity noun_tuple with affixes and proaffixes
         # and generate vocalized affixes and suffixes
         if not tmp_list:
@@ -262,12 +236,6 @@ class NounStemmer:
                                 word_seg_l4["affix_tags"] = affix_tags_voc
                                 tmp_list.append(word_seg_l4)
 
-        if debug:
-            print("after check compatibility")
-        if debug:
-            print(arepr(noun_in))
-            noun_tuples = [item["noun_tuple"] for item in tmp_list]
-            print(print_table(noun_tuples))
         # Generate results
         if not tmp_list:
             self.set_error_code("Affixes not compatible")
@@ -332,11 +300,6 @@ class NounStemmer:
         if not detailed_result:
             self.set_error_code("Forms are not generated")
 
-        if debug:
-            print("after generate result")
-        if debug:
-            print(len(detailed_result))
-        # ~ if debug: print repr(detailed_result).replace('},','},\n').decode("unicode-escape")
         return detailed_result
 
     def __check_clitic_affix(self, noun_tuple, proclitic_nm, enclitic, suffix):
@@ -426,14 +389,6 @@ class NounStemmer:
             self.cache_affixes_verification[affix] = True
 
         return self.cache_affixes_verification[affix]
-
-    def set_debug(self, debug):
-        """
-        Set the debug attribute to allow printing internal analysis results.
-        @param debug: the debug value.
-        @type debug: True/False.
-        """
-        self.debug = debug
 
     def enable_syntax_lastmark(self):
         """
@@ -873,42 +828,3 @@ class NounStemmer:
         # 'k_suffix':21, *
         # 'annex':22,
         return True
-
-
-def mainly():
-    """
-    Test main"""
-    # ToDo: use the full dictionary of arramooz
-    wordlist = [
-        "يضرب",
-        "الكتاب",
-        "الاستخدام",
-        "فاستعمالهم",
-        "ضرب",
-        "لأكلهم",
-    ]
-    nounstemmer = NounStemmer()
-    nounstemmer.set_debug(True)
-    for word in wordlist:
-        nounstemmer.conj_stemmer.segment(word)
-        print(nounstemmer.conj_stemmer.get_affix_list())
-    for word in wordlist:
-        result = nounstemmer.stemming_noun(word)
-        for analyzed in result:
-            # ~ print(repr(analyzed).encode('utf8')) #.decode('unicode-escape')
-            # ~ print('\n'.join(analyzed.__dict__.keys()))
-            for key in analyzed.__dict__.keys():
-                print(
-                    (
-                        "\t".join(
-                            [key, repr(analyzed.__dict__[key]).decode("unicode-escape")]
-                        )
-                    )
-                ).encode("utf8")
-            print()
-            print()
-
-
-# Class test
-if __name__ == "__main__":
-    mainly()
