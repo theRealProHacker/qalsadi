@@ -36,7 +36,6 @@ import mysam.tagcoder
 
 sys.path.append("../")
 import qalsadi.analex
-from qalsadi.stemnode import StemNode
 
 from fixtures import tagcode_dataset
 
@@ -78,18 +77,6 @@ class qalsadiTagCoderTestCase(unittest.TestCase):
             ],
             [],
         )
-
-    def _check_word(self, word, vocalized_lemma=False, check_as=""):
-        """
-        A costumized check word used just for tests
-        """
-        if check_as == "":
-            wordcases = self.analyzer.check_word(word)
-        else:
-            wordcases = self.analyzer.check_word(word)
-
-        stmnd = StemNode(wordcases, vocalized_lemma=vocalized_lemma)
-        return stmnd
 
     def _check_word_tags(self, word, vocalized_lemma=False, check_as=""):
         """

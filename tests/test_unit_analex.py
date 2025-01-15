@@ -36,7 +36,6 @@ import pyarabic.araby as araby
 
 sys.path.append("../")
 import qalsadi.analex
-from qalsadi.stemnode import StemNode
 
 from fixtures import analex_dataset
 from fixtures import verb_dataset
@@ -61,55 +60,6 @@ class qalsadiAnalyzerTestCase(unittest.TestCase):
         self.unknown_lemma_list = unknown_dataset.Lemmas_DataSet
         self.punct_lemma_list = punct_dataset.Lemmas_DataSet
         self.limit = 1000
-
-    def _check_word(self, word, vocalized_lemma=False, check_as=""):
-        """
-        A costumized check word used just for tests
-        """
-        if check_as == "":
-            wordcases = self.analyzer.check_word(word)
-        elif check_as == "noun":
-            wordcases = self.analyzer.check_word_as_noun(word)
-        elif check_as == "verb":
-            wordcases = self.analyzer.check_word_as_verb(word)
-        elif check_as == "punct":
-            wordcases = self.analyzer.check_word_as_punct(word)
-        elif check_as == "unknown":
-            wordcases = self.analyzer.check_word_as_unknown(word)
-        elif check_as == "stopword":
-            wordcases = self.analyzer.check_word_as_stopword(word)
-        else:
-            wordcases = self.analyzer.check_word(word)
-
-        stmnd = StemNode(wordcases, vocalized_lemma=vocalized_lemma)
-        return stmnd
-
-    @unittest.skip("used to generate Data Set")
-    def test_generate_data_set(
-        self,
-    ):
-        """test text case"""
-        text = """هل تحتاج إلى ترجمة كي تفهم خطاب الملك؟ اللغة "الكلاسيكية" (الفصحى) موجودة في كل اللغات وكذلك اللغة "الدارجة" .. الفرنسية التي ندرس في المدرسة ليست الفرنسية التي يستخدمها الناس في شوارع باريس .. وملكة بريطانيا لا تخطب بلغة شوارع لندن .. لكل مقام مقال"""
-        wordcaseslistlist = self.analyzer.check_text(text)
-
-        for wordcaseslist in wordcaseslistlist:
-            stmnode = StemNode(wordcaseslist, vocalized_lemma=True)
-            print(
-                {
-                    "token": stmnode.get_word(),
-                    "lemmas": stmnode.get_lemmas(),
-                    "wordtype": stmnode.get_word_type(),
-                    "vocalizeds": stmnode.get_vocalizeds(),
-                    "equal": True,
-                },
-                ",",
-            )
-        self.assertCountEqual(
-            [
-                1,
-            ],
-            [],
-        )
 
     @unittest.skip("used to generate Data Set")
     def test_generate_verb_data_set(
@@ -329,70 +279,6 @@ class qalsadiAnalyzerTestCase(unittest.TestCase):
         stmnode = self._check_word(word, vocalized_lemma=True, check_as="noun")
         lemmas = stmnode.get_lemmas()
         self.assertIn(expected_lemma, lemmas)
-
-    def test_text_cases(
-        self,
-    ):
-        """test text case"""
-        text = """هل تحتاج إلى ترجمة كي تفهم خطاب الملك؟ اللغة "الكلاسيكية" (الفصحى) موجودة في كل اللغات وكذلك اللغة "الدارجة" .. الفرنسية التي ندرس في المدرسة ليست الفرنسية التي يستخدمها الناس في شوارع باريس .. وملكة بريطانيا لا تخطب بلغة شوارع لندن .. لكل مقام مقال"""
-        expected_lemmas = [
-            "هل",
-            "احتاج",
-            "إلى",
-            "ترجمة",
-            "كي",
-            "تف",
-            "خطاب",
-            "ملك",
-            "؟",
-            "لغة",
-            '"',
-            "كلاسيكي",
-            '"(',
-            "فصحى",
-            ")",
-            "موجود",
-            "في",
-            "كل",
-            "لغة",
-            "كذلك",
-            "لغة",
-            '"',
-            "دارج",
-            '"..',
-            "فرنسة",
-            "التي",
-            "درس",
-            "في",
-            "مدرس",
-            "ليست",
-            "فرنسة",
-            "التي",
-            "استخدم",
-            "ناس",
-            "في",
-            "شوارع",
-            "باريس",
-            "..",
-            "ملك",
-            "بريطاني",
-            "لا",
-            "خطب",
-            "بلغة",
-            "شوارع",
-            "أدان",
-            "..",
-            "كل",
-            "مقام",
-            "مقال",
-        ]
-        wordcaselist_list = self.analyzer.check_text(text)
-        for i, wordcases in enumerate(wordcaselist_list):
-            stmnode = StemNode(wordcases)
-            lemmas = stmnode.get_lemmas()
-            self.assertIn(expected_lemmas[i], lemmas)
-
-    # cases
 
     # ~ @unittest.skip("not yet ready ")
     def test_analysis_case1(

@@ -197,7 +197,6 @@ class StemmedWord:
         # ~ if given_person_tag: print "--",given_person_tag.encode('utf8')
         return self.tag_person
 
-    
     def __get_type(self, input_type):
         """
         Return the numeric code of word type.

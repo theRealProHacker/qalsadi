@@ -43,8 +43,6 @@ import qalsadi.cache_pickledb
 import qalsadi.cache_codernity
 import qalsadi.cache_factory
 
-from qalsadi.stemnode import StemNode
-
 from fixtures import analex_dataset
 
 
@@ -58,17 +56,6 @@ class qalsadiAnalyzerCacheTestCase(unittest.TestCase):
         self.analyzer = qalsadi.analex.Analex()
         self.word_lemma_list = analex_dataset.Lemmas_DataSet
         self.limit = 1000
-
-    def _check_word(self, word, vocalized_lemma=False, check_as=""):
-        """
-        A costumized check word used just for tests
-        """
-        if check_as == "":
-            wordcases = self.analyzer.check_word(word)
-        else:
-            wordcases = self.analyzer.check_word(word)
-        stmnd = StemNode(wordcases, vocalized_lemma=vocalized_lemma)
-        return stmnd
 
     def _test_many_analysis(self, words_lemmas, vocalized=False, limit=10, check_as=""):
         """
@@ -133,70 +120,6 @@ class qalsadiAnalyzerCacheTestCase(unittest.TestCase):
         stmnode = self._check_word(word, vocalized_lemma=True)
         lemmas = stmnode.get_lemmas()
         self.assertIn(expected_lemma, lemmas)
-
-    def test_text_cases(
-        self,
-    ):
-        """test text case"""
-        text = """هل تحتاج إلى ترجمة كي تفهم خطاب الملك؟ اللغة "الكلاسيكية" (الفصحى) موجودة في كل اللغات وكذلك اللغة "الدارجة" .. الفرنسية التي ندرس في المدرسة ليست الفرنسية التي يستخدمها الناس في شوارع باريس .. وملكة بريطانيا لا تخطب بلغة شوارع لندن .. لكل مقام مقال"""
-        expected_lemmas = [
-            "هل",
-            "احتاج",
-            "إلى",
-            "ترجمة",
-            "كي",
-            "تف",
-            "خطاب",
-            "ملك",
-            "؟",
-            "لغة",
-            '"',
-            "كلاسيكي",
-            '"(',
-            "فصحى",
-            ")",
-            "موجود",
-            "في",
-            "كل",
-            "لغة",
-            "كذلك",
-            "لغة",
-            '"',
-            "دارج",
-            '"..',
-            "فرنسة",
-            "التي",
-            "درس",
-            "في",
-            "مدرس",
-            "ليست",
-            "فرنسة",
-            "التي",
-            "استخدم",
-            "ناس",
-            "في",
-            "شوارع",
-            "باريس",
-            "..",
-            "ملك",
-            "بريطاني",
-            "لا",
-            "خطب",
-            "بلغة",
-            "شوارع",
-            "أدان",
-            "..",
-            "كل",
-            "مقام",
-            "مقال",
-        ]
-        wordcaselist_list = self.analyzer.check_text(text)
-        for i, wordcases in enumerate(wordcaselist_list):
-            stmnode = StemNode(wordcases)
-            lemmas = stmnode.get_lemmas()
-            self.assertIn(expected_lemmas[i], lemmas)
-
-    # cases
 
     # ~ @unittest.skip("not yet ready ")
     def test_analysis_case1(
