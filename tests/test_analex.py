@@ -3,11 +3,11 @@
 
 from io import open
 import argparse
+import pprint
 import sys
 import os
 import pyarabic.araby as araby
 import mysam.tagmaker
-from console_progressbar import ProgressBar
 
 
 def grabargs():
@@ -70,11 +70,7 @@ class tester:
     @staticmethod
     def test_quran(text, outfile):
         analyzer = qanalex.Analex(cache_path="cache/")
-        # ~ analyzer.disable_allow_cache_use()
         # install a cache system for analyzer
-        db_path = os.path.join(os.path.dirname(__file__), "cache", ".qalsadiCache")
-        cacher = qalsadi.cache_codernity.Cache(db_path)
-        analyzer.set_cacher(cacher)
         analyzer.enable_allow_cache_use()
 
         analyzer.enable_fully_vocalized_input()
@@ -139,22 +135,12 @@ class tester:
         elif type(text) == list:
             if not limit:
                 limit = len(text)
-            progress = ProgressBar(
-                total=limit,
-                prefix="",
-                suffix="",
-                decimals=2,
-                length=50,
-                fill="#",
-                zfill="-",
-                file=sys.stderr,
-            )
+            
 
             lines = text
             result = []
-            for counter, line in enumerate(lines[:limit]):
+            for line in lines[:limit]:
                 result += analyzer.check_text(line)
-                progress.print_progress_bar(counter)
         adapted_result = []
         # flatten
         for i, analyzed_list in enumerate(result):

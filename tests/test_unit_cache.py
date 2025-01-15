@@ -182,20 +182,6 @@ class qalsadiAnalyzerCacheTestCase(unittest.TestCase):
         self.analyzer.set_cacher()
         self.analyzer.disable_allow_cache_use()
 
-    def test_cache_codernity(
-        self,
-    ):
-        """test Cache case"""
-        path = os.path.join(os.path.dirname(__file__), "cache")
-        cacher = qalsadi.cache_codernity.Cache(path)
-        # attach cacher to analyzer
-        self.analyzer.set_cacher(cacher)
-        self.analyzer.enable_allow_cache_use()
-        self.test_text_cases()
-        # remove cacher
-        self.analyzer.set_cacher()
-        self.analyzer.disable_allow_cache_use()
-
     def test_cache_factory(
         self,
     ):

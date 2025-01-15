@@ -44,8 +44,6 @@ class Cache_Factory(object):
             return cache_pickle.Cache(path)
         elif name == "pickledb":
             return cache_pickledb.Cache(path)
-        elif name in ("codernity", "codernitydb"):
-            return cache_codernity.Cache(path)
         else:
             return cache.Cache()
 
