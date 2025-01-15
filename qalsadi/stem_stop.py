@@ -18,7 +18,7 @@
 import pyarabic.araby as araby
 import tashaphyne.stemming
 import tashaphyne.normalize
-from . import stem_stopwords_const as ssconst
+from . import stem_stop_const as ssconst
 import arramooz.stopwordsdictionaryclass as stopwordsdictionaryclass
 from . import wordcase
 

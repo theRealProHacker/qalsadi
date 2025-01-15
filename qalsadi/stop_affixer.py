@@ -16,7 +16,7 @@
 """
 # ~ import re
 import pyarabic.araby as araby
-from . import stem_stopwords_const as SSC
+from . import stem_stop_const as SSC
 
 
 class stopword_affixer:
