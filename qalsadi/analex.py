@@ -69,7 +69,6 @@ class Analex:
             self.tagger = naftawayh.wordtag.WordTagger()
         if self.allow_disambiguation:
             self.disambiguator = disambig.Disambiguator()
-        self.limit = 10000  # limit words in the text
         self.wordcounter = 0
 
         self.clause_pattern = re.compile(
@@ -196,7 +195,7 @@ class Analex:
         resulted_data = []
 
         if mode == "all":
-            for i in list(range(len(list_word[: self.limit]))):
+            for i in range(len(list_word)):
                 word = list_word[i]
                 guessedtag = list_guessed_tag[i]
                 one_data_list = self.check_word(word, guessedtag)
@@ -205,7 +204,7 @@ class Analex:
                 ]
                 resulted_data.append(stemmed_one_data_list)
         elif mode == "nouns":
-            for word in list_word[: self.limit]:
+            for word in list_word:
                 one_data_list = self.check_word_as_noun(word)
                 stemmed_one_data_list = [
                     stemmedword.StemmedWord(w) for w in one_data_list
@@ -213,7 +212,7 @@ class Analex:
                 resulted_data.append(stemmed_one_data_list)
                 # ~ resulted_data.append(one_data_list)
         elif mode == "verbs":
-            for word in list_word[: self.limit]:
+            for word in list_word:
                 one_data_list = self.check_word_as_verb(word)
                 stemmed_one_data_list = [
                     stemmedword.StemmedWord(w) for w in one_data_list
