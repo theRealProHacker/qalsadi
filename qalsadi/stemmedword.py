@@ -275,7 +275,7 @@ class StemmedWord:
             # يكون المصدر مذكرا إذا لم يحتوي على تاء مربوطة و لم يكن جمع تكسير
             elif (
                 "مصدر" in self.type
-                and araby.TEH_MARBUTA not in self.get_original()
+                and araby.TEH_MARBUTA not in self.original
                 and "جمع" not in self.tag_original_number
             ):
                 self.tag_gender = 1
@@ -286,8 +286,8 @@ class StemmedWord:
         # ما كات اصله تاء مربوطة
         # للعمل TODO
         # دالة حاصة للكلمات المؤنثة
-        ##print "stemmedword", self.get_original(), (araby.TEH_MARBUTA in self.get_original())
-        if araby.TEH_MARBUTA in self.get_original():
+        ##print "stemmedword", self.original, (araby.TEH_MARBUTA in self.original)
+        if araby.TEH_MARBUTA in self.original:
             self.tag_gender += 2
         elif "مؤنث" in self.tag_original_gender or "مؤنث" in self.tags:
             self.tag_gender += 2
@@ -297,7 +297,7 @@ class StemmedWord:
             self.tag_gender += 2
         # الحالات غير المثبتة والتي نحاول استخلاصها بقاعدة
         elif "مصدر" in self.type and (
-            araby.TEH_MARBUTA in self.get_original()
+            araby.TEH_MARBUTA in self.original
             or "جمع" in self.tag_original_number
         ):
             self.tag_gender += 2
@@ -483,7 +483,7 @@ class StemmedWord:
 
     def is_indirect_transitive_stopword(self):
         """Return True if the word is a stop word."""
-        return self.is_stopword() and self.get_original() in ("فِي", "عَنْ", "إِلَى", "عَلَى")
+        return self.is_stopword() and self.original in ("فِي", "عَنْ", "إِلَى", "عَلَى")
 
     def is_verb(self):
         """Return True if the word is a verb."""

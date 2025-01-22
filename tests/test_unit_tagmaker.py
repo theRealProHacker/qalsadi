@@ -107,7 +107,7 @@ class qalsadiTagCoderTestCase(unittest.TestCase):
         wordcases = self.analyzer.check_word(word)
         tuple_list = []
         for wd in wordcases:
-            lemma = wd.get_original()
+            lemma = wd.original
             vocalized = wd.get_vocalized()
             tags = ":".join([wd.tags, wd.type])
             tags = tags.split(":")
