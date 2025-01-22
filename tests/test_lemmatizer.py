@@ -37,8 +37,7 @@ def main(args):
     """
     text = "اسمائها وصفاتها"
     result = []
-    lemmer = qalsadi.lemmatizer.Lemmatizer()
-    lemmer.set_vocalized_lemma()
+    lemmer = qalsadi.lemmatizer.Lemmatizer(vocalized_lemma=True)
     # ~ result = lemmer.analyze_text(text)
     # ~ lemmas = lemmer.get_lemmas(result)
     print("****************")

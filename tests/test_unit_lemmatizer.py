@@ -168,7 +168,7 @@ class qalsadilemmatizerTestCase(unittest.TestCase):
             "مقام",
             "مقال",
         ]
-        self.lemmer.set_vocalized_lemma()
+        self.lemmer.vocalized_lemma = True
         lemmas = self.lemmer.lemmatize_text(text, return_pos=True)
         print(len(tokens), len(lemmas), len(expected_lemmas))
         print(lemmas)
@@ -201,8 +201,7 @@ class qalsadilemmatizerTestCase(unittest.TestCase):
         """
         wrong_lemmatization = []
         nb_diff = 0
-        if vocalized:
-            self.lemmer.set_vocalized_lemma()
+        self.lemmer.vocalized_lemma = vocalized
         for item in words_lemmas:
             token = item.get("token")
             expected_lemma = item.get("lemma")
@@ -232,8 +231,6 @@ class qalsadilemmatizerTestCase(unittest.TestCase):
                             "flag": result_flag,
                         }
                     )
-        if vocalized:
-            self.lemmer.set_vocalized_lemma()
         return wrong_lemmatization
 
     def test_word_cases(
