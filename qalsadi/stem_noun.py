@@ -78,7 +78,6 @@ class NounStemmer:
             return self.noun_cache[word]
         else:
             result = self.noun_dictionary.lookup(word)
-            result += self.custom_noun_dictionary.lookup(word)
             self.noun_cache[word] = result
         return result
 
