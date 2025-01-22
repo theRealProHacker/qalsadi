@@ -214,37 +214,37 @@ class StemmedAffix:
         self.tag_inflect = 0
         # invariable
         # if verb
-        if "الماضي" in self.get_tags():
+        if "الماضي" in self.tags:
             self.tag_inflect += 1
-        elif "الأمر" in self.get_tags():
+        elif "الأمر" in self.tags:
             self.tag_inflect += 1
-        elif "مؤكد" in self.get_tags():
+        elif "مؤكد" in self.tags:
             self.tag_inflect += 1
         # invariable noun
-        elif "مبني" in self.get_tags() and "مجهول" not in self.get_tags():
+        elif "مبني" in self.tags and "مجهول" not in self.tags:
             self.tag_inflect += 1
         # marfou3
-        if "مرفوع" in self.get_tags():
+        if "مرفوع" in self.tags:
             self.tag_inflect += 2
         # if is a imperfect and not mansoub or majzoum =>marfou3
         # ToDo:
         # use tense class instead of tag search
         elif (
-            "مضارع" in self.get_tags()
-            and "منصوب" not in self.get_tags()
-            and "مجزوم" not in self.get_tags()
+            "مضارع" in self.tags
+            and "منصوب" not in self.tags
+            and "مجزوم" not in self.tags
         ):
             self.tag_inflect += 2
         # mansoub
         # noun and verb
-        if "منصوب" in self.get_tags():
+        if "منصوب" in self.tags:
             self.tag_inflect += 4
         # majrour
         # noun
-        if "مجرور" in self.get_tags():
+        if "مجرور" in self.tags:
             self.tag_inflect += 8
         # a Verb, verb can't be majrour
-        elif "مجزوم" in self.get_tags():
+        elif "مجزوم" in self.tags:
             self.tag_inflect += 16
         return self.tag_inflect
 
@@ -268,15 +268,15 @@ class StemmedAffix:
         """
         # غير محدد
         self.tag_number = 0
-        if "مفرد" in self.get_tags():
+        if "مفرد" in self.tags:
             self.tag_number += 1
-        if "مثنى" in self.get_tags():
+        if "مثنى" in self.tags:
             self.tag_number += 2
-        if "جمع" in self.get_tags():
+        if "جمع" in self.tags:
             self.tag_number += 4
-            if "جمع مذكر سالم" in self.get_tags():
+            if "جمع مذكر سالم" in self.tags:
                 self.tag_number += 8
-            if "جمع مؤنث سالم" in self.get_tags():
+            if "جمع مؤنث سالم" in self.tags:
                 self.tag_number += 16
         # here the single is not defaut value
         # because it can be used as irregular plural affix
@@ -359,11 +359,11 @@ class StemmedAffix:
         """
         # غير محدد
         self.tag_gender = 0
-        if "مذكر" in self.get_tags():
+        if "مذكر" in self.tags:
             self.tag_gender += 1
-        if "مؤنث" in self.get_tags():
+        if "مؤنث" in self.tags:
             self.tag_gender += 2
-        elif "جمع مؤنث سالم" in self.get_tags():
+        elif "جمع مؤنث سالم" in self.tags:
             self.tag_gender += 2
 
         return self.tag_gender
@@ -374,7 +374,7 @@ class StemmedAffix:
         @return: has the state defined.
         @rtype: True/False
         """
-        return "تعريف" in self.get_tags() or "مضاف" in self.get_tags()
+        return "تعريف" in self.tags or "مضاف" in self.tags
 
     def __is3rdperson(self):
         """
@@ -382,7 +382,7 @@ class StemmedAffix:
         @return: has the 3rd persontense.
         @rtype: True/False
         """
-        return ":هي:" in self.get_tags() or ":هو:" in self.get_tags()
+        return ":هي:" in self.tags or ":هو:" in self.tags
 
     def __is1stperson(self):
         """
@@ -390,7 +390,7 @@ class StemmedAffix:
         @return: has the 1st persontense.
         @rtype: True/False
         """
-        return ":أنا:" in self.get_tags()
+        return ":أنا:" in self.tags
 
     def is3rdperson_masculin(self):
         """
@@ -398,7 +398,7 @@ class StemmedAffix:
         @return: has the 3rd persontense.
         @rtype: True/False
         """
-        return ":هو:" in self.get_tags()
+        return ":هو:" in self.tags
 
     def is3rdperson_fem(self):
         """
@@ -406,7 +406,7 @@ class StemmedAffix:
         @return: has the 3rd person feminin.
         @rtype: True/False
         """
-        return ":هي:" in self.get_tags()
+        return ":هي:" in self.tags
 
     def __is_tanwin(self):
         """
@@ -414,7 +414,7 @@ class StemmedAffix:
         @return: has tanwin.
         @rtype: True/False
         """
-        return "تنوين" in self.get_tags()
+        return "تنوين" in self.tags
 
     def __has_jar(self):
         """
@@ -422,7 +422,7 @@ class StemmedAffix:
         @return: has jar.
         @rtype: True/False
         """
-        return "جر:" in self.get_tags()  # or self.procletic.startswith(araby.LAM)
+        return "جر:" in self.tags  # or self.procletic.startswith(araby.LAM)
 
     def __has_istfham(self):
         """
@@ -430,7 +430,7 @@ class StemmedAffix:
         @return: has jar.
         @rtype: True/False
         """
-        return "استفهام" in self.get_tags()
+        return "استفهام" in self.tags
 
     def __is_break(self):
         """
@@ -447,7 +447,7 @@ class StemmedAffix:
         if self.has_procletic() and self.has_jar():
             return True
         elif (
-            "عطف" in self.get_tags()
+            "عطف" in self.tags
             or araby.WAW in self.get_procletic()
             or araby.FEH in self.get_procletic()
         ):
@@ -464,7 +464,7 @@ class StemmedAffix:
         @return: has the state added.
         @rtype: True/False
         """
-        return "مضاف" in self.get_tags() or "اسم إضافة" in self.get_tags()
+        return "مضاف" in self.tags or "اسم إضافة" in self.tags
 
     def __is_3tf(self):
         """
@@ -472,7 +472,7 @@ class StemmedAffix:
         @return: is plural.
         @rtype: True/False
         """
-        return "عطف" in self.get_tags()
+        return "عطف" in self.tags
 
     def is_3tf(self):
         """
@@ -488,7 +488,7 @@ class StemmedAffix:
     # ~@return: is plural.
     # ~@rtype: True/False
     # ~"""
-    # ~return  'جمع' in self.get_tags()
+    # ~return  'جمع' in self.tags
 
     def get_tags(
         self,
@@ -598,7 +598,7 @@ class StemmedAffix:
         @rtype: True/False
         """
         return bool(self.tag_tense % 2)
-        # ~return   'ماضي'in self.get_tags()
+        # ~return   'ماضي'in self.tags
 
     def is_present(self):
         """
@@ -607,7 +607,7 @@ class StemmedAffix:
         @rtype: True/False
         """
         return bool(self.tag_tense // 2 % 2)
-        # ~return  'مضارع' in self.get_tags()
+        # ~return  'مضارع' in self.tags
 
     def is_passive(self):
         """
@@ -616,7 +616,7 @@ class StemmedAffix:
         @rtype: True/False
         """
         return bool(self.tag_tense // 8 % 2)
-        # ~return  'مجهول'in self.get_tags()
+        # ~return  'مجهول'in self.tags
 
     def is3rdperson(self):
         """

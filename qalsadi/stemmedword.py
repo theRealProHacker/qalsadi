@@ -105,7 +105,7 @@ class StemmedWord:
             self.affix_key = "|".join([self.affix_key, self.word])
         if self.affix_key not in GLOBAL_AFFIXES:
             GLOBAL_AFFIXES[self.affix_key] = stemmedaffix.StemmedAffix(resultdict)
-            # ~ self.tag_transitive     ='y' in self.get_tags()
+            # ~ self.tag_transitive     ='y' in self.tags
         if self.is_stopword():
             self.tag_transparent = self._is_transparent()
         self.tag_initial = self._is_initial()
@@ -142,20 +142,20 @@ class StemmedWord:
         self.tag_number = 0
         # إذا لم يكن في الزوائد ما يدل على الجمع
         if not self._affix_is_plural() and not self._affix_is_dual():
-            if "مفرد" in self.get_tags() or ("مفرد" in self.tag_original_number):
+            if "مفرد" in self.tags or ("مفرد" in self.tag_original_number):
                 self.tag_number += 1
         if not self._affix_is_plural():
-            if "مثنى" in self.get_tags():
+            if "مثنى" in self.tags:
                 self.tag_number += 2
         if (
             self._affix_is_plural()
-            or "جمع" in self.get_tags()
+            or "جمع" in self.tags
             or ("جمع" in self.tag_original_number)
         ):
             self.tag_number += 4
-            if "جمع مذكر سالم" in self.get_tags():
+            if "جمع مذكر سالم" in self.tags:
                 self.tag_number += 8
-            if "جمع مؤنث سالم" in self.get_tags():
+            if "جمع مؤنث سالم" in self.tags:
                 self.tag_number += 16
             if "جمع تكسير" in self.tag_original_number:
                 self.tag_number += 32
@@ -176,16 +176,16 @@ class StemmedWord:
         @rtype: int
         """
         self.tag_person = 0
-        # ~ print self.get_tags().encode('utf8')
-        if "متكلم" in self.get_tags() or (
+        # ~ print self.tags.encode('utf8')
+        if "متكلم" in self.tags or (
             given_person_tag and "متكلم" in given_person_tag
         ):
             self.tag_person += 1
-        if "مخاطب" in self.get_tags() or (
+        if "مخاطب" in self.tags or (
             given_person_tag and "مخاطب" in given_person_tag
         ):
             self.tag_person += 2
-        if "غائب" in self.get_tags() or (
+        if "غائب" in self.tags or (
             given_person_tag and "غائب" in given_person_tag
         ):
             self.tag_person += 4
@@ -193,7 +193,7 @@ class StemmedWord:
             self.tag_person = 4
         # ~ print self.tag_person
         # tempdislay
-        # ~ print self.word.encode('utf8'), self.get_tags().encode('utf8'), self.tag_person
+        # ~ print self.word.encode('utf8'), self.tags.encode('utf8'), self.tag_person
         # ~ if given_person_tag: print "--",given_person_tag.encode('utf8')
         return self.tag_person
 
@@ -225,7 +225,7 @@ class StemmedWord:
         if "مصدر" in input_type:
             self.tag_type += 8
         # adjective
-        # ~ print "tags", self.get_word().encode('utf8'), self.get_tags().encode('utf8')
+        # ~ print "tags", self.get_word().encode('utf8'), self.tags.encode('utf8')
         if (
             "صفة" in input_type
             or "اسم مفعول" in input_type
@@ -233,7 +233,7 @@ class StemmedWord:
             or "صيغة مبالغة" in input_type
             or "فاعل" in input_type
             or "اسم تفضيل" in input_type
-            or "منسوب" in self.get_tags()
+            or "منسوب" in self.tags
             # ~ or 'منسوب' in self.get_affix_tags()
             or "منسوب" in input_type
             or "adj" in input_type
@@ -289,9 +289,9 @@ class StemmedWord:
         ##print "stemmedword", self.get_original(), (araby.TEH_MARBUTA in self.get_original())
         if araby.TEH_MARBUTA in self.get_original():
             self.tag_gender += 2
-        elif "مؤنث" in self.tag_original_gender or "مؤنث" in self.get_tags():
+        elif "مؤنث" in self.tag_original_gender or "مؤنث" in self.tags:
             self.tag_gender += 2
-        elif "جمع مؤنث سالم" in self.get_tags():
+        elif "جمع مؤنث سالم" in self.tags:
             self.tag_gender += 2
         elif self._affix_is_feminin():  # إذا كان متصلا بمايؤنثه
             self.tag_gender += 2
@@ -325,8 +325,8 @@ class StemmedWord:
         # which havent any gramatical effect.
         # Todo
         # حالة بذلك الرجل
-        # return  ('شفاف' in self.get_tags() or 'إشارة'in self.get_tags()  ) and self.has_jar()
-        return "شفاف" in self.get_tags()
+        # return  ('شفاف' in self.tags or 'إشارة'in self.tags  ) and self.has_jar()
+        return "شفاف" in self.tags
 
     def _is_mamnou3(self):
         """
@@ -334,7 +334,7 @@ class StemmedWord:
         @return: is mamnou3 min sarf.
         @rtype: True/False
         """
-        return "ممنوع من الصرف" in self.get_tags() or "noun_prop" in self.get_type()
+        return "ممنوع من الصرف" in self.tags or "noun_prop" in self.get_type()
 
     def get_procletic(
         self,
@@ -417,7 +417,7 @@ class StemmedWord:
 
     def _is_added(self):
         """Return True if the word has the state added مضاف."""
-        # ~ return self._affix_is_added() or 'اسم إضافة' in self.get_tags()
+        # ~ return self._affix_is_added() or 'اسم إضافة' in self.tags
         return self._affix_is_added()
 
     def _affix_is_feminin(self):
@@ -445,7 +445,7 @@ class StemmedWord:
         # - حرف جر متصل
         # فاصلة أو نقطة
         result = False
-        if self.is_punct() and "break" in self.get_tags():
+        if self.is_punct() and "break" in self.tags:
             result = True
         elif self.is_stopword() and not self.is_noun() and not self.is_transparent():
             result = True
@@ -550,7 +550,7 @@ class StemmedWord:
                 return False
             else:
                 return True
-        if "منصوب" in self.get_tags() and self.is_feminin_plural():
+        if "منصوب" in self.tags and self.is_feminin_plural():
             return True
         if self.affix_key in GLOBAL_AFFIXES:
             return GLOBAL_AFFIXES[self.affix_key].is_mansoub()
@@ -577,7 +577,7 @@ class StemmedWord:
 
     def is_mabni(self):
         """Return True if the word has the state mabni."""
-        if "مبني" in self.get_tags():
+        if "مبني" in self.tags:
             return True
         if self.affix_key in GLOBAL_AFFIXES:
             return GLOBAL_AFFIXES[self.affix_key].is_mabni()
@@ -589,13 +589,13 @@ class StemmedWord:
         # ~ الضمير، العلم، اسم الإشارة، الاسم الموصول، المحلَّى بأل، المضاف إلى معرفة، المنادى.
         if self.affix_key in GLOBAL_AFFIXES:
             return GLOBAL_AFFIXES[self.affix_key].is_defined()
-        elif "ضمير" in self.get_tags():
+        elif "ضمير" in self.tags:
             return True
-        elif "اسم إشارة" in self.get_tags():
+        elif "اسم إشارة" in self.tags:
             return True
-        elif "اسم موصول" in self.get_tags():
+        elif "اسم موصول" in self.tags:
             return True
-        elif "noun_prop" in self.get_tags():
+        elif "noun_prop" in self.tags:
             return True
         return False
 
@@ -660,9 +660,9 @@ class StemmedWord:
     def has_imperative_pronoun(self):
         """Return True if the word has the 3rd person."""
         return bool(self.tag_person // 2 % 2)
-        # ~ return (':أنت:' in self.get_tags() or ':أنتِ:' in self.get_tags()) \
-        # ~ and 'أنتما' in self.get_tags() and  ':أنتما مؤ:' in self.get_tags() \
-        # ~ and ':أنتم:' in self.get_tags() and  ':أنتن:' in self.get_tags()
+        # ~ return (':أنت:' in self.tags or ':أنتِ:' in self.tags) \
+        # ~ and 'أنتما' in self.tags and  ':أنتما مؤ:' in self.tags \
+        # ~ and ':أنتم:' in self.tags and  ':أنتن:' in self.tags
 
     def is_tanwin(self):
         """Return True if the word has tanwin."""

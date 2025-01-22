@@ -86,7 +86,7 @@ class qalsadiTagCoderTestCase(unittest.TestCase):
         stmnode = self._check_word(
             word, vocalized_lemma=vocalized_lemma, check_as=check_as
         )
-        tagslist = stmnode.get_tags()
+        tagslist = stmnode.tags
 
         # convert tags string into list
         tagslist = [t.split(":") for t in tagslist]
@@ -109,7 +109,7 @@ class qalsadiTagCoderTestCase(unittest.TestCase):
         for wd in wordcases:
             lemma = wd.get_original()
             vocalized = wd.get_vocalized()
-            tags = ":".join([wd.get_tags(), wd.get_type()])
+            tags = ":".join([wd.tags, wd.get_type()])
             tags = tags.split(":")
             tagscode = self.mytagcoder.encode(tags)
             inflect = self.mytagcoder.inflect(tagscode)
