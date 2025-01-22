@@ -250,9 +250,7 @@ class qalsadiTagCoderTestCase(unittest.TestCase):
         """test case according to generated tags
         based on dataset"""
 
-        result = self._test_many_analysis_tags(
-            self.word_lemma_list, test_field="tags"
-        )
+        result = self._test_many_analysis_tags(self.word_lemma_list, test_field="tags")
         len_wrong_cases = len(result)
         if len_wrong_cases:
             print("Wrong cases")

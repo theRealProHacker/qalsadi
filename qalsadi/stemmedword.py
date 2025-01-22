@@ -177,17 +177,11 @@ class StemmedWord:
         """
         self.tag_person = 0
         # ~ print self.tags.encode('utf8')
-        if "متكلم" in self.tags or (
-            given_person_tag and "متكلم" in given_person_tag
-        ):
+        if "متكلم" in self.tags or (given_person_tag and "متكلم" in given_person_tag):
             self.tag_person += 1
-        if "مخاطب" in self.tags or (
-            given_person_tag and "مخاطب" in given_person_tag
-        ):
+        if "مخاطب" in self.tags or (given_person_tag and "مخاطب" in given_person_tag):
             self.tag_person += 2
-        if "غائب" in self.tags or (
-            given_person_tag and "غائب" in given_person_tag
-        ):
+        if "غائب" in self.tags or (given_person_tag and "غائب" in given_person_tag):
             self.tag_person += 4
         if not self.tag_person:
             self.tag_person = 4
@@ -297,8 +291,7 @@ class StemmedWord:
             self.tag_gender += 2
         # الحالات غير المثبتة والتي نحاول استخلاصها بقاعدة
         elif "مصدر" in self.type and (
-            araby.TEH_MARBUTA in self.original
-            or "جمع" in self.tag_original_number
+            araby.TEH_MARBUTA in self.original or "جمع" in self.tag_original_number
         ):
             self.tag_gender += 2
 

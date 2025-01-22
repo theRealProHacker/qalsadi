@@ -274,9 +274,7 @@ class qalsadilemmatizerTestCase(unittest.TestCase):
         """test case
         based on dataset"""
 
-        result = self._test_many_lemmatization(
-            self.word_lemma_list, vocalized=True
-        )
+        result = self._test_many_lemmatization(self.word_lemma_list, vocalized=True)
         len_wrong_cases = len(result)
         if len_wrong_cases:
             print("Wrong cases")
