@@ -267,14 +267,14 @@ class StemmedWord:
             if "مذكر" in self.tag_original_gender:
                 self.tag_gender = 1
             elif (
-                "اسم فاعل" in self.get_type()
-                or "اسم مفعول" in self.get_type()
-                or "صفة مشبهة" in self.get_type()
+                "اسم فاعل" in self.type
+                or "اسم مفعول" in self.type
+                or "صفة مشبهة" in self.type
             ):
                 self.tag_gender = 1
             # يكون المصدر مذكرا إذا لم يحتوي على تاء مربوطة و لم يكن جمع تكسير
             elif (
-                "مصدر" in self.get_type()
+                "مصدر" in self.type
                 and araby.TEH_MARBUTA not in self.get_original()
                 and "جمع" not in self.tag_original_number
             ):
@@ -296,7 +296,7 @@ class StemmedWord:
         elif self._affix_is_feminin():  # إذا كان متصلا بمايؤنثه
             self.tag_gender += 2
         # الحالات غير المثبتة والتي نحاول استخلاصها بقاعدة
-        elif "مصدر" in self.get_type() and (
+        elif "مصدر" in self.type and (
             araby.TEH_MARBUTA in self.get_original()
             or "جمع" in self.tag_original_number
         ):
@@ -304,7 +304,7 @@ class StemmedWord:
 
         # جمع التكسير للمصادر والجوامد مؤنث
         elif "جمع" in self.tag_original_number and (
-            "جامد" in self.get_type() or "مصدر" in self.get_type()
+            "جامد" in self.type or "مصدر" in self.type
         ):
             self.tag_gender += 2
 
@@ -334,7 +334,7 @@ class StemmedWord:
         @return: is mamnou3 min sarf.
         @rtype: True/False
         """
-        return "ممنوع من الصرف" in self.tags or "noun_prop" in self.get_type()
+        return "ممنوع من الصرف" in self.tags or "noun_prop" in self.type
 
     def get_procletic(
         self,
@@ -475,7 +475,7 @@ class StemmedWord:
     # --------------------------
     def is_unknown(self):
         """Return True if the word is unknown."""
-        return "unknown" in self.get_type()
+        return "unknown" in self.type
 
     def is_stopword(self):
         """Return True if the word is a stop word."""

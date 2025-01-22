@@ -109,7 +109,7 @@ class qalsadiTagCoderTestCase(unittest.TestCase):
         for wd in wordcases:
             lemma = wd.get_original()
             vocalized = wd.get_vocalized()
-            tags = ":".join([wd.tags, wd.get_type()])
+            tags = ":".join([wd.tags, wd.type])
             tags = tags.split(":")
             tagscode = self.mytagcoder.encode(tags)
             inflect = self.mytagcoder.inflect(tagscode)
