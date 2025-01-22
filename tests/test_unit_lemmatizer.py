@@ -1,29 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-#
-#  test_unit_lemmatizer.py
-#
-#  Copyright 2023 zerrouki <zerrouki@majd4>
-#
-#  This program is free software; you can redistribute it and/or modify
-#  it under the terms of the GNU General Public License as published by
-#  the Free Software Foundation; either version 2 of the License, or
-#  (at your option) any later version.
-#
-#  This program is distributed in the hope that it will be useful,
-#  but WITHOUT ANY WARRANTY; without even the implied warranty of
-#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#  GNU General Public License for more details.
-#
-#  You should have received a copy of the GNU General Public License
-#  along with this program; if not, write to the Free Software
-#  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-#  MA 02110-1301, USA.
-#
-#
-
-#!/usr/bin/python
-# -*- coding=utf-8 -*-
 import unittest
 import sys
 import pprint
@@ -44,13 +18,35 @@ class qalsadilemmatizerTestCase(unittest.TestCase):
         """
         self.lemmer = qalsadi.lemmatizer.Lemmatizer()
         self.word_lemma_list = lemmas_dataset.Lemmas_DataSet
-        self.limit = 1000
 
     def test_text_cases(
         self,
     ):
         """test text case"""
         text = """هل تحتاج إلى ترجمة كي تفهم خطاب الملك؟ اللغة "الكلاسيكية" (الفصحى) موجودة في كل اللغات وكذلك اللغة "الدارجة" .. الفرنسية التي ندرس في المدرسة ليست الفرنسية التي يستخدمها الناس في شوارع باريس .. وملكة بريطانيا لا تخطب بلغة شوارع لندن .. لكل مقام مقال"""
+        # TODO
+        # word = "وفي"
+        # expected_lemma = "فِي"
+
+        # stmnode = self._check_word(word, vocalized_lemma=True)
+        # lemmas = stmnode.get_lemmas()
+        # self.assertIn(expected_lemma, lemmas)
+        # word = "يحتاج"
+        # expected_lemma = "اِحْتَاجَ"
+        # stmnode = self._check_word(word, vocalized_lemma=True)
+        # lemmas = stmnode.get_lemmas()
+        # self.assertIn(expected_lemma, lemmas)
+        # word = "يحتاج"
+        # expected_lemma = "اِحْتَاجَ"
+        # stmnode = self._check_word(word, vocalized_lemma=True, check_as="verb")
+        # lemmas = stmnode.get_lemmas()
+        # self.assertIn(expected_lemma, lemmas)
+        # word = "بالمدرستين"
+        # expected_lemma = "مَدْرَسَةٌ"
+
+        # stmnode = self._check_word(word, vocalized_lemma=True, check_as="noun")
+        # lemmas = stmnode.get_lemmas()
+        # self.assertIn(expected_lemma, lemmas)
         expected_lemmas = [
             "هل",
             "احتاج",
@@ -193,7 +189,7 @@ class qalsadilemmatizerTestCase(unittest.TestCase):
         # ~ self.assertListEqual(lemmas, expected_lemmas)
 
     # ~ @unittest.skip("Not yet ready")
-    def _test_many_lemmatization(self, words_lemmas, vocalized=False, limit=10):
+    def _test_many_lemmatization(self, words_lemmas, vocalized=False):
         """
         private method
         test word list lemmatization from dataset
@@ -263,7 +259,7 @@ class qalsadilemmatizerTestCase(unittest.TestCase):
         """test case
         based on dataset"""
 
-        result = self._test_many_lemmatization(self.word_lemma_list, limit=self.limit)
+        result = self._test_many_lemmatization(self.word_lemma_list)
         len_wrong_cases = len(result)
         if len_wrong_cases:
             print("Wrong cases")
@@ -279,7 +275,7 @@ class qalsadilemmatizerTestCase(unittest.TestCase):
         based on dataset"""
 
         result = self._test_many_lemmatization(
-            self.word_lemma_list, vocalized=True, limit=self.limit
+            self.word_lemma_list, vocalized=True
         )
         len_wrong_cases = len(result)
         if len_wrong_cases:
