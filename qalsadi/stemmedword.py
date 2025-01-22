@@ -117,7 +117,7 @@ class StemmedWord:
     # --------------------------
     def _is_initial(self):
         """Return True if the word mark the begin of next sentence."""
-        word = self.get_word()
+        word = self.word
         return word == "" or word[0] in (".", "?", "", ":")
 
     def __get_number(self):
@@ -225,7 +225,7 @@ class StemmedWord:
         if "مصدر" in input_type:
             self.tag_type += 8
         # adjective
-        # ~ print "tags", self.get_word().encode('utf8'), self.tags.encode('utf8')
+        # ~ print "tags", self.word.encode('utf8'), self.tags.encode('utf8')
         if (
             "صفة" in input_type
             or "اسم مفعول" in input_type
@@ -239,7 +239,7 @@ class StemmedWord:
             or "adj" in input_type
         ):
             self.tag_type += 16
-            # ~ print "is adj", self.get_word().encode('utf8')
+            # ~ print "is adj", self.word.encode('utf8')
         if "noun_prop" in input_type:
             self.tag_type += 32
         if "POUNCT" in input_type:
@@ -533,7 +533,7 @@ class StemmedWord:
     def is_majrour(self):
         """Return True if the word has the state majrour."""
         # Like بهذه بتلك
-        # ~ print "maj",self.get_word().encode('utf8'), self.has_jar()
+        # ~ print "maj",self.word.encode('utf8'), self.has_jar()
 
         if self.is_mabni() or self.has_jar():
             return True
@@ -544,7 +544,7 @@ class StemmedWord:
 
     def is_mansoub(self):
         """Return True if the word has the state mansoub."""
-        # ~ print "mansoub",self.get_word().encode('utf8'), self.has_jar()
+        # ~ print "mansoub",self.word.encode('utf8'), self.has_jar()
         if self.is_mabni():
             if self.has_jar():
                 return False
@@ -558,7 +558,7 @@ class StemmedWord:
 
     def is_marfou3(self):
         """Return True if the word has the state marfou3."""
-        # ~ print "marf3",self.get_word().encode('utf8'), self.has_jar()
+        # ~ print "marf3",self.word.encode('utf8'), self.has_jar()
 
         if self.is_mabni():
             if self.has_jar():
