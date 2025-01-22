@@ -198,7 +198,6 @@ class Analex:
         if mode == "all":
             for i in list(range(len(list_word[: self.limit]))):
                 word = list_word[i]
-                self.count_word()  # a ghost function to count words check function calls
                 guessedtag = list_guessed_tag[i]
                 one_data_list = self.check_word(word, guessedtag)
                 stemmed_one_data_list = [
@@ -385,6 +384,16 @@ class Analex:
             resulted_data[i] = item
         return resulted_data
 
+    def check_word_as_stopword(self, word):
+        """
+        Check if the word is a stopword,
+        @param word: the input word.
+        @type word: unicode.
+        @return: list of dictionaries of analyzed words with tags.
+        @rtype: list.
+        """
+        return self.stopwordsstemmer.stemming_stopword(word)
+
     def check_word_as_punct(self, word):
         """
         Check if the word is a punctuation,
@@ -416,8 +425,7 @@ class Analex:
             )
         # test if all chars in word are punctuation
         for char in word:
-            # if one char is not a punct, break
-            if char not in stem_punct_const.punctuation:
+            if char not in stem_punct_const.PUNCTUATION:
                 break
         else:
             # if all chars are punct, the word take tags of the first char
@@ -429,7 +437,7 @@ class Analex:
                         "stem": "",
                         "original": word,
                         "vocalized": word,
-                        "tags": stem_punct_const.punctuation[word[0]]["tags"],
+                        "tags": stem_punct_const.PUNCTUATION[word[0]]["tags"],
                         "type": "punct",
                         "freq": 0,
                         "syntax": "",
@@ -439,6 +447,36 @@ class Analex:
             )
 
         return detailed_result
+
+    def check_word_as_verb(self, verb):
+        """
+        Analyze the word as verb.
+        @param verb: the input word.
+        @type verb: unicode.
+        @return: list of dictionaries of analyzed words with tags.
+        @rtype: list.
+        """
+        return self.verbstemmer.stemming_verb(verb)
+
+    def check_word_as_noun(self, noun):
+        """
+        Analyze the word as noun.
+        @param noun: the input word.
+        @type noun: unicode.
+        @return: list of dictionaries of analyzed words with tags.
+        @rtype: list.
+        """
+        return self.nounstemmer.stemming_noun(noun)
+
+    def check_word_as_unknown(self, noun):
+        """
+        Analyze the word as unknown.
+        @param noun: the input word.
+        @type noun: unicode.
+        @return: list of dictionaries of analyzed words with tags.
+        @rtype: list.
+        """
+        return self.unknownstemmer.stemming_noun(noun)
 
     @staticmethod
     def check_shadda(word_nm_shadda, resulted_data, fully_vocalized_input=False):
