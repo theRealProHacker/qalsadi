@@ -49,7 +49,6 @@ class qalsadiTagCoderTestCase(unittest.TestCase):
         """
         self.analyzer = qalsadi.analex.Analex()
         self.word_lemma_list = tagcode_dataset.Lemmas_DataSet
-        self.limit = 1000
         self.mytagcoder = mysam.tagcoder.tagCoder()
 
     @unittest.skip("used to generate Data Set")
@@ -125,7 +124,7 @@ class qalsadiTagCoderTestCase(unittest.TestCase):
         return tuple_list
 
     # ~ @unittest.skip("Not yet ready")
-    def _test_many_analysis_tags(self, words_lemmas, test_field="tagscode", limit=10):
+    def _test_many_analysis_tags(self, words_lemmas, test_field="tagscode"):
         """
         private method
         test word list analysis from dataset
@@ -217,7 +216,7 @@ class qalsadiTagCoderTestCase(unittest.TestCase):
         based on dataset"""
 
         result = self._test_many_analysis_tags(
-            self.word_lemma_list, test_field="tagscode", limit=self.limit
+            self.word_lemma_list, test_field="tagscode"
         )
         len_wrong_cases = len(result)
         if len_wrong_cases:
@@ -234,7 +233,7 @@ class qalsadiTagCoderTestCase(unittest.TestCase):
         based on dataset"""
 
         result = self._test_many_analysis_tags(
-            self.word_lemma_list, test_field="inflect", limit=self.limit
+            self.word_lemma_list, test_field="inflect"
         )
         len_wrong_cases = len(result)
         if len_wrong_cases:
@@ -252,7 +251,7 @@ class qalsadiTagCoderTestCase(unittest.TestCase):
         based on dataset"""
 
         result = self._test_many_analysis_tags(
-            self.word_lemma_list, test_field="tags", limit=self.limit
+            self.word_lemma_list, test_field="tags"
         )
         len_wrong_cases = len(result)
         if len_wrong_cases:
