@@ -4,25 +4,31 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "qalsadi"
-version = "0.0.0"
+dynamic = ["version"]
 authors = [
   { name="Rashid Harvey", email="rashid.harvey@fu-berlin.de" },
 ]
 description = "Arabic Morphological Analyzer and Lemmatizer"
 readme = "README.md"
+license = {text="GPL-3.0-or-later"}
 requires-python = ">=3.10"
 classifiers = [
-    "Programming Language :: Python :: 3",
-    "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Operating System :: OS Independent",
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
 ]
 
 dependencies = [
-    "libqutrub>=1.2.3",
-    "naftawayh>=0.3",
-    "pyarabic>=0.6.7",
-    "tashaphyne>=0.3.4.1",
-    "arramooz-pysqlite>=0.4.2",
-    "Arabic-Stopwords>=0.4.2",
-    "alyahmor>=0.2",
-    "mysam-tagmanager>=0.4"
+  "libqutrub>=1.2.3",
+  "naftawayh>=0.3",
+  "pyarabic>=0.6.7",
+  "tashaphyne>=0.3.4.1",
+  "arramooz-pysqlite>=0.4.2",
+  "Arabic-Stopwords>=0.4.2",
+  "alyahmor>=0.2",
+  "mysam-tagmanager>=0.4"
 ]
+
+[tool.setuptools]
+packages = ["qalsadi"]
