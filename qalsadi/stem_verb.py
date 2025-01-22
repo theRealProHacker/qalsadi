@@ -21,7 +21,6 @@ import alyahmor.aly_stem_verb_const as SVC
 import alyahmor.verb_affixer
 import libqutrub.classverb
 import arramooz.arabicdictionary as arabicdictionary
-from . import custom_dictionary
 from . import wordcase
 
 
@@ -62,9 +61,6 @@ class VerbStemmer:
 
         self.verb_dictionary = arabicdictionary.ArabicDictionary("verbs")
 
-        # costum verb dictionary
-        self.custom_verb_dictionary = custom_dictionary.custom_dictionary("verbs")
-
         self.verb_stamp_pat = SVC.VERB_STAMP_PAT
         self.stamp_cache = {}
         self.verb_cache = {}
@@ -97,7 +93,6 @@ class VerbStemmer:
             return self.verb_cache[word]
         else:
             result = self.verb_dictionary.lookup_by_stamp(word)
-            result += self.custom_verb_dictionary.lookup_by_stamp(word)
             self.verb_cache[word] = result
         return result
 
@@ -113,7 +108,6 @@ class VerbStemmer:
             return False
         if stamp not in self.stamp_cache:
             result = self.verb_dictionary.exists_as_stamp(word)
-            result += self.custom_verb_dictionary.exists_as_stamp(word)
             self.stamp_cache[stamp] = result
         return self.stamp_cache.get(stamp, False)
 
